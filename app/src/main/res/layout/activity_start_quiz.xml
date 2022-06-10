@@ -1,44 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".startQuizActivity">
 
-    <TableLayout
+    <TableRow
+        android:layout_marginTop="150dp"
+        android:layout_marginHorizontal="26dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
-        <TableRow
+        <TextView
+            android:id="@+id/DifficultyTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Choose Difficulty"
+            android:textSize="26sp"/>
+    </TableRow>
 
-            <Spinner
-                android:id="@+id/selectDifficultySpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </TableRow>
+    <TableRow
 
-        <TableRow
+        android:layout_marginHorizontal="26dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Spinner
+            android:id="@+id/selectDifficultySpinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:textSize="26sp"/>
+    </TableRow>
 
-            <Spinner
-                android:id="@+id/selectCategorySpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="26dp">
 
-        <TableRow
+        <TextView
+            android:layout_marginTop="8dp"
+            android:id="@+id/CategoryTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Choose Category"
+            android:textSize="26sp"/>
+    </TableRow>
 
-            <Button
-                android:id="@+id/startQuiz"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button" />
-        </TableRow>
-    </TableLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="8dp">
+
+        <Spinner
+            android:id="@+id/selectCategorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:textSize="26sp"/>
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/startQuiz"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="Start Quiz"
+            android:layout_weight="1"
+            android:textSize="26sp"/>
+    </TableRow>
+</TableLayout>
