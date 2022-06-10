@@ -15,6 +15,7 @@ public class startQuizActivity extends AppCompatActivity implements AdapterView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_quiz);
 
+        //Dummy Adapter für Spinner Kategorie bis API/DB
         Spinner selectCategorySpinner = findViewById(R.id.selectCategorySpinner);
         ArrayAdapter<CharSequence> selectCategorySpinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.categories, android.R.layout.simple_spinner_item);
@@ -22,6 +23,7 @@ public class startQuizActivity extends AppCompatActivity implements AdapterView.
         selectCategorySpinner.setAdapter(selectCategorySpinnerAdapter);
         selectCategorySpinner.setOnItemSelectedListener(this);
 
+        //Dummy Adapter für Spinner Schwierigkeit bis API/DB
         Spinner selectDifficultySpinner = findViewById(R.id.selectDifficultySpinner);
         ArrayAdapter<CharSequence> selectDifficultyAdapter = ArrayAdapter.createFromResource(this,
                 R.array.difficulties, android.R.layout.simple_spinner_item);
