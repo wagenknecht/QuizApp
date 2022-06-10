@@ -9,30 +9,22 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button startButton;
-    Button highscoreButton;
-    Button settingButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
 
-        startButton = findViewById(R.id.startBtn);
-        highscoreButton = findViewById(R.id.highscoreBtn);
-        settingButton = findViewById(R.id.settingsBtn);
+    public void clickStartQuiz(View view) {
+        Intent intent_startQuiz = new Intent(MainActivity.this, startQuizActivity.class);
+        startActivity(intent_startQuiz);
+    }
 
-        startButton.setOnClickListener(view -> {
-            Intent intent_startQuiz = new Intent(MainActivity.this, startQuizActivity.class);
-            startActivity(intent_startQuiz);
-        });
+    public void clickHighscore(View view) {
+        //add Intent to Highscore
+    }
 
-        highscoreButton.setOnClickListener(view -> {
-
-        });
-
-        settingButton.setOnClickListener(view -> {
-
-        });
+    public void clickSettings(View view) {
+        //add Intent to Settings
     }
 }
