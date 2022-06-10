@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickHighscore(View view) {
-        //add Intent to Highscore
+        Intent highscore = new Intent(MainActivity.this, ViewScoresActivity.class);
+        startActivity(highscore);
     }
 
     public void clickSettings(View view) {
