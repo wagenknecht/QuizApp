@@ -14,18 +14,18 @@ public interface BestenlisteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addSpieler(Bestenliste bestenliste);
 
-    @Query("select * from bestenlsite")
+    @Query("select * from bestenliste")
     public List<Bestenliste> getAllBestenlisteEintraege();
 
     @Delete
     void removeBestenlisteEintrag(Bestenliste bestenliste);
 
-    @Query("select * from bestenlsite where id = :bestenlisteId")
+    @Query("select * from bestenliste where id = :bestenlisteId")
     Bestenliste getBestenlisteEintrag(long bestenlisteId);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateBestenliste(Bestenliste bestenliste);
 
-    @Query("delete from bestenlsite")
+    @Query("delete from bestenliste")
     void removeAllEintraege();
 }
