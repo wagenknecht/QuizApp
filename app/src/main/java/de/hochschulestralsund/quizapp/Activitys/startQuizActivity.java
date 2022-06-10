@@ -1,12 +1,15 @@
-package de.hochschulestralsund.quizapp;
+package de.hochschulestralsund.quizapp.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import de.hochschulestralsund.quizapp.R;
 
 public class startQuizActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
@@ -40,5 +43,10 @@ public class startQuizActivity extends AppCompatActivity implements AdapterView.
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    public void startQuiz(View view){
+        Intent intent = new Intent(this,QuizActcivity.class);
+        startActivity(intent);
     }
 }

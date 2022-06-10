@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import de.hochschulestralsund.quizapp.Activitys.HighscoreActivity;
 import de.hochschulestralsund.quizapp.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,8 +16,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void score(View view){
-        Intent intent = new Intent(this, HighscoreActivity.class);
-        startActivity(intent);
+    public void clickStartQuiz(View view) {
+        Intent intent_startQuiz = new Intent(MainActivity.this, startQuizActivity.class);
+        startActivity(intent_startQuiz);
+    }
+
+    public void clickHighscore(View view) {
+        //add Intent to Highscore
+    }
+
+    public void clickSettings(View view) {
+        //add Intent to Settings
     }
 }

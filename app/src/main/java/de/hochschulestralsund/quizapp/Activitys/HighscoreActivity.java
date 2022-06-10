@@ -43,7 +43,7 @@ public class HighscoreActivity extends AppCompatActivity {
     }
 
     public void retry(View view){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, startQuizActivity.class);
         startActivity(intent);
     }
 }

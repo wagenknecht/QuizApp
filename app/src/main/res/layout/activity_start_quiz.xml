@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".startQuizActivity">
+    tools:context=".Activitys.startQuizActivity">
 
     <TableRow
         android:layout_marginTop="150dp"
@@ -75,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:text="Start Quiz"
+            android:onClick="startQuiz"
             android:layout_weight="1"
             android:textSize="26sp"/>
     </TableRow>
