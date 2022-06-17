@@ -67,6 +67,7 @@ public class HighscoreActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 StringBuilder stringBuilder = new StringBuilder();
+                System.out.println(input.getText().toString());
                 //todo add to DB, reload page after insert to display new item
             }
         });
