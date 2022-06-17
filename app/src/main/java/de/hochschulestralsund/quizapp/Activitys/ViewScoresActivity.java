@@ -30,16 +30,43 @@ public class ViewScoresActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        List<String> input = new ArrayList<>();
+        List<String> easy = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
-            input.add("Test" + i);
+            easy.add("easy" + i);
         }// define an adapter
-        mAdapter = new ScoreAdapter(input);
+        mAdapter = new ScoreAdapter(easy);
         recyclerView.setAdapter(mAdapter);
     }
 
     public void zurueck(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+    }
+
+    public void easy(View view){
+        List<String> easy = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            easy.add("easy" + i);
+        }// define an adapter
+        mAdapter = new ScoreAdapter(easy);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    public void medium(View view){
+        List<String> medium = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            medium.add("medium" + i);
+        }
+        mAdapter = new ScoreAdapter(medium);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    public void hard(View view){
+        List<String> hard = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            hard.add("hard" + i);
+        }
+        mAdapter = new ScoreAdapter(hard);
+        recyclerView.setAdapter(mAdapter);
     }
 }
