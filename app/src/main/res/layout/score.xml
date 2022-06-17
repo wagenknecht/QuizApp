@@ -14,7 +14,7 @@
         android:layout_alignParentRight="true"
         android:gravity="center_vertical"
         android:text="Score"
-        android:textSize="16sp" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/secondLine"

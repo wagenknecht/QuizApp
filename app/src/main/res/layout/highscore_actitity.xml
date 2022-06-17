@@ -7,21 +7,35 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="335dp"
-        android:layout_height="477dp"
-        app:layout_constraintBottom_toTopOf="@+id/back"
+        android:layout_width="338dp"
+        android:layout_height="447dp"
+        app:layout_constraintBottom_toTopOf="@+id/retry"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="entferne mich"
+        android:onClick="placeHolder"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+    </Button>
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="156dp"
-        android:layout_height="58dp"
-        android:text="highscores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⭐ highscores ⭐"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,8 +45,9 @@
         android:id="@+id/retry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="erneut versuchen"
         android:onClick="retry"
+        android:text="erneut versuchen"
+        app:icon="@drawable/ic_baseline_replay_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/back"
         app:layout_constraintHorizontal_bias="0.5"
@@ -43,8 +58,8 @@
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="zurück"
         android:onClick="zurueck"
+        android:text="zurück"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
