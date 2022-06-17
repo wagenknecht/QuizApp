@@ -1,11 +1,12 @@
-package de.hochschulestralsund.quizapp;
+package de.hochschulestralsund.quizapp.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+
+import de.hochschulestralsund.quizapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickHighscore(View view) {
-        //add Intent to Highscore
+        Intent highscore = new Intent(MainActivity.this, ViewScoresActivity.class);
+        startActivity(highscore);
     }
 
     public void clickSettings(View view) {
