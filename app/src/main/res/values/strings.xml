@@ -1,17 +1,4 @@
 <resources>
     <string name="app_name">QuizApp</string>
     <!--Dummy difficulties before API/Database-->
-    <string-array name="difficulties">
-        <item>Easy</item>
-        <item>Medium</item>
-        <item>Hard</item>
-    </string-array>
-    <!--Dummy categories before API/Database-->
-    <string-array name="categories">
-        <item>All</item>
-        <item>General Knowledge</item>
-        <item>Politics</item>
-        <item>History</item>
-        <item>Geography</item>
-    </string-array>
 </resources>

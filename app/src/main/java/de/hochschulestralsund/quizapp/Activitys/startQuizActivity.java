@@ -32,19 +32,11 @@ public class startQuizActivity extends AppCompatActivity implements AdapterView.
 
         //Dummy Adapter für Spinner Kategorie bis API/DB
         Spinner selectCategorySpinner = findViewById(R.id.selectCategorySpinner);
-        ArrayAdapter<CharSequence> selectCategorySpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.categories, android.R.layout.simple_spinner_item);
-        selectCategorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectCategorySpinner.setAdapter(selectCategorySpinnerAdapter);
-        selectCategorySpinner.setOnItemSelectedListener(this);
+        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
 
         //Dummy Adapter für Spinner Schwierigkeit bis API/DB
         Spinner selectDifficultySpinner = findViewById(R.id.selectDifficultySpinner);
-        ArrayAdapter<CharSequence> selectDifficultyAdapter = ArrayAdapter.createFromResource(this,
-                R.array.difficulties, android.R.layout.simple_spinner_item);
-        selectDifficultyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        selectDifficultySpinner.setAdapter(selectDifficultyAdapter);
-        selectDifficultySpinner.setOnItemSelectedListener(this);
+        selectDifficultySpinner.setAdapter(new ArrayAdapter<Difficulty>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Difficulty.values()));
     }
 
     @Override
@@ -60,8 +52,10 @@ public class startQuizActivity extends AppCompatActivity implements AdapterView.
     public void startQuiz(View view){
         Intent intent = new Intent(this, QuizActivity.class);
         OpenTrivialService openTrivialService =new OpenTrivialService();
+        Spinner cat = findViewById(R.id.selectCategorySpinner);
+        Spinner dif = findViewById(R.id.selectDifficultySpinner);
         //todo add right selector
-        openTrivialService.getQuestions(10, Difficulty.MEDIUM, Category.ANIMALS, new QuestionResponseCallback() {
+        openTrivialService.getQuestions(10, (Difficulty) dif.getSelectedItem(), (Category) cat.getSelectedItem(), new QuestionResponseCallback() {
             @Override
             public void onQuestionResponse(List<Question> questionList) {
                 questionList.forEach(question -> intent.putExtra("question", (Serializable) questionList));
