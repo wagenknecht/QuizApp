@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activitys.startQuizActivity">
+    tools:context=".Activitys.StartQuizActivity">
 
     <TableRow
         android:layout_marginTop="150dp"

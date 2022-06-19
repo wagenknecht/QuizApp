@@ -3,6 +3,9 @@ package de.hochschulestralsund.quizapp.Activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,9 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
+import de.hochschulestralsund.quizapp.Entities.Category;
 import de.hochschulestralsund.quizapp.R;
 
-public class ViewScoresActivity extends AppCompatActivity {
+public class ViewScoresActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -30,12 +34,15 @@ public class ViewScoresActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        //test data
         List<String> easy = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             easy.add("easy" + i);
-        }// define an adapter
+        }
         mAdapter = new ScoreAdapter(easy);
         recyclerView.setAdapter(mAdapter);
+        Spinner selectCategorySpinner = findViewById(R.id.spinnerCategory);
+        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
     }
 
     public void zurueck(View view){
@@ -68,5 +75,15 @@ public class ViewScoresActivity extends AppCompatActivity {
         }
         mAdapter = new ScoreAdapter(hard);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
