@@ -71,6 +71,7 @@ public class HighscoreActivity extends AppCompatActivity {
                 //todo add to DB, reload page after insert to display new item
             }
         });
+
         builder.setNegativeButton("nicht speichern", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
