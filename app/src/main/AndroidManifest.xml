@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activitys.HighscoreActivity"></activity>
-        <activity android:name=".Activitys.QuizActcivity"></activity>
+        <activity android:name=".Activitys.QuizActivity"></activity>
         <activity android:name=".Activitys.ViewScoresActivity"></activity>
     </application>
 

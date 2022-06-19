@@ -2,16 +2,28 @@ package de.hochschulestralsund.quizapp.Activitys;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.io.Serializable;
+import java.util.List;
+
+import de.hochschulestralsund.quizapp.Api.OpenTrivialService;
+import de.hochschulestralsund.quizapp.Api.QuestionResponseCallback;
+import de.hochschulestralsund.quizapp.Entities.Category;
+import de.hochschulestralsund.quizapp.Entities.Difficulty;
+import de.hochschulestralsund.quizapp.Entities.Question;
 import de.hochschulestralsund.quizapp.R;
 
 public class startQuizActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
+    public List<Question> QuestionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +58,15 @@ public class startQuizActivity extends AppCompatActivity implements AdapterView.
     }
 
     public void startQuiz(View view){
-        Intent intent = new Intent(this,QuizActcivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(this, QuizActivity.class);
+        OpenTrivialService openTrivialService =new OpenTrivialService();
+        //todo add right selector
+        openTrivialService.getQuestions(10, Difficulty.MEDIUM, Category.ANIMALS, new QuestionResponseCallback() {
+            @Override
+            public void onQuestionResponse(List<Question> questionList) {
+                questionList.forEach(question -> intent.putExtra("question", (Serializable) questionList));
+                startActivity(intent);
+            }
+        });
     }
 }

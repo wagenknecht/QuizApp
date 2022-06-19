@@ -3,6 +3,9 @@ package de.hochschulestralsund.quizapp.Activitys;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +18,7 @@ import java.util.List;
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
 import de.hochschulestralsund.quizapp.R;
 
-public class ViewScoresActivity extends AppCompatActivity {
+public class ViewScoresActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -36,6 +39,13 @@ public class ViewScoresActivity extends AppCompatActivity {
         }// define an adapter
         mAdapter = new ScoreAdapter(easy);
         recyclerView.setAdapter(mAdapter);
+
+        Spinner selectCategorySpinner = findViewById(R.id.spinnerCategory);
+        ArrayAdapter<CharSequence> selectCategorySpinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.categories, android.R.layout.simple_spinner_item);
+        selectCategorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        selectCategorySpinner.setAdapter(selectCategorySpinnerAdapter);
+        selectCategorySpinner.setOnItemSelectedListener(this);
     }
 
     public void zurueck(View view){
@@ -68,5 +78,15 @@ public class ViewScoresActivity extends AppCompatActivity {
         }
         mAdapter = new ScoreAdapter(hard);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

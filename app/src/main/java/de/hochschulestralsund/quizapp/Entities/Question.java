@@ -1,8 +1,9 @@
 package de.hochschulestralsund.quizapp.Entities;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Question {
+public class Question implements Serializable {
 
     // Attributes
     private String category;
