@@ -23,35 +23,38 @@ public class QuizActivity extends AppCompatActivity {
     private int lives =3;
     private List<Question> question;
     private int number;
+    List<Button>buttons=new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quiz_activity);
+        buttons.add(findViewById(R.id.antwort1));
+        buttons.add(findViewById(R.id.antwort2));
+        buttons.add(findViewById(R.id.antwort3));
+        buttons.add(findViewById(R.id.antwort4));
         //get Questions
         if(getIntent().getExtras() != null) {
             question = (List<Question>) getIntent().getSerializableExtra("question");
         }
-        correctAnswere = setAnsweres();
+        setAnsweres();
         setQuestion();
         number=0;
     }
 
     //gets Triggert when a Button is clicked
     public void answere(View view){
-        System.out.println(number);
         //if question is correct
         if (view.getId()==correctAnswere.getId()){
             score=score+1;
             //check if all questions are answered/finish
-            if (number==10){
+            if (number==9){
                 Intent intent=new Intent(this, HighscoreActivity.class);
                 intent.putExtra("score",score);
                 startActivity(intent);
             }
             else{
                 number=number+1;
-                setCorrect();
                 setAnsweres();
                 setQuestion();
             }
@@ -69,24 +72,17 @@ public class QuizActivity extends AppCompatActivity {
         questionTitel.setText(question.get(number).getCategory());
         Question.setText(question.get(number).getQuestion());
         TextView Number = findViewById(R.id.QuestionNumber);
-        Number.setText("Question Number: "+number);
-    }
-
-    public int setCorrect(){
-        Random random = new Random();
-        int correct = random.nextInt(4);
-        return correct;
+        int display = number+1;
+        Number.setText("Question Number: "+display);
     }
 
     public Button setAnsweres(){
-        int correct = setCorrect();
-        List<Button>buttons=new ArrayList<>();
-        buttons.add(findViewById(R.id.antwort1));
-        buttons.add(findViewById(R.id.antwort2));
-        buttons.add(findViewById(R.id.antwort3));
-        buttons.add(findViewById(R.id.antwort4));
-        Button correctButton = buttons.get(correct);
-        correctButton.setText("correct"+question.get(number).getCorrect_answer());
+        //select a Random button to be right
+        Random random = new Random();
+        int correct = random.nextInt(4);
+        correctAnswere  = buttons.get(correct); //save CorrectAnswer to global string to compare result
+        //todo remove string correct, just for testing
+        correctAnswere.setText("correct: "+question.get(number).getCorrect_answer());
         int j = 0;
         for (int i =0;i<buttons.size();i++){
             if (i!=correct){
@@ -95,6 +91,6 @@ public class QuizActivity extends AppCompatActivity {
                j++;
             }
         }
-        return correctButton;
+        return correctAnswere;
     }
 }
