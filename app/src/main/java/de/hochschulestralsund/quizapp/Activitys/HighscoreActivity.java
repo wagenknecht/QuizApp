@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
+import de.hochschulestralsund.quizapp.Entities.Question;
 import de.hochschulestralsund.quizapp.R;
 
 public class HighscoreActivity extends AppCompatActivity {
@@ -25,6 +26,7 @@ public class HighscoreActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    int score;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +42,12 @@ public class HighscoreActivity extends AppCompatActivity {
         }// define an adapter
         mAdapter = new ScoreAdapter(input);
         recyclerView.setAdapter(mAdapter);
+
+        if(getIntent().getExtras() != null) {
+            score = (Integer) getIntent().getSerializableExtra("score");
+        }
+//        if (score>=DatabaseHighsore)
+            newHighscore();
     }
 
     public void zurueck(View view){
@@ -52,14 +60,13 @@ public class HighscoreActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void placeHolder(View view){
+    public void newHighscore(){
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 HighscoreActivity.this
         );
-        builder.setTitle("\uD83C\uDF89 Highscore speichern \uD83C\uDF89");
+        builder.setTitle("\uD83C\uDF89 new high score: "+score+" points \uD83C\uDF89");
         builder.setCancelable(false);
-
-        builder.setMessage("Bitte gib einen Namen an, unter welchem der Highscore gespeichert werden soll");
+        builder.setMessage("Please enter a name under which the high score should be saved");
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
