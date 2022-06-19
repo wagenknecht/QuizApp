@@ -1,4 +1,3 @@
 <resources>
     <string name="app_name">QuizApp</string>
-    <!--Dummy difficulties before API/Database-->
 </resources>

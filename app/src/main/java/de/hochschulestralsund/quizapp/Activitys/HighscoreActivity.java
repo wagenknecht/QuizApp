@@ -14,11 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
-import de.hochschulestralsund.quizapp.Entities.Question;
 import de.hochschulestralsund.quizapp.R;
 
 public class HighscoreActivity extends AppCompatActivity {
@@ -56,7 +54,7 @@ public class HighscoreActivity extends AppCompatActivity {
     }
 
     public void retry(View view){
-        Intent intent = new Intent(this, startQuizActivity.class);
+        Intent intent = new Intent(this, StartQuizActivity.class);
         startActivity(intent);
     }
 

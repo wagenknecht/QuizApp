@@ -21,7 +21,7 @@ import de.hochschulestralsund.quizapp.Entities.Difficulty;
 import de.hochschulestralsund.quizapp.Entities.Question;
 import de.hochschulestralsund.quizapp.R;
 
-public class startQuizActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class StartQuizActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     public List<Question> QuestionList;
 
