@@ -1,7 +1,9 @@
 package de.hochschulestralsund.quizapp.Activitys;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +25,8 @@ public class QuizActivity extends AppCompatActivity {
     private List<Question> question;
     private int number;
     List<Button> buttons = new ArrayList<>();
+    private Button btnContinue;
+    private boolean gameover;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,30 +40,25 @@ public class QuizActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             question = (List<Question>) getIntent().getSerializableExtra("question");
         }
+        btnContinue = findViewById(R.id.btnContinue);
+        btnContinue.setClickable(false);
         setAnsweres();
         setQuestion();
         number = 0;
+        gameover = false;
     }
 
     //gets Triggert when a Button is clicked
     public void answere(View view) {
+        btnContinue.setClickable(true);
+        correctAnswere.setBackgroundColor(Color.GREEN);
+        buttons.forEach(a -> a.setClickable(false));
         //if question is correct
         if (view.getId() == correctAnswere.getId()) {
             score = score + 1;
-            //check if all questions are answered/finish
-            if (number == 9) {
-                Intent intent = new Intent(this, HighscoreActivity.class);
-                intent.putExtra("score", score);
-                startActivity(intent);
-            } else {
-                number = number + 1;
-                setAnsweres();
-                setQuestion();
-            }
         } else {
-            Intent intent = new Intent(this, HighscoreActivity.class);
-            intent.putExtra("score", score);
-            startActivity(intent);
+            gameover = true;
+            view.setBackgroundColor(Color.RED);
         }
     }
 
@@ -90,4 +89,27 @@ public class QuizActivity extends AppCompatActivity {
         }
         return correctAnswere;
     }
+
+    public void clickContinue(View view) {
+        if(gameover){
+            Intent intent = new Intent(this, HighscoreActivity.class);
+            intent.putExtra("score", score);
+            startActivity(intent);
+        } else {
+            //check if all questions are answered/finish
+            if (number == 9) {
+                Intent intent = new Intent(this, HighscoreActivity.class);
+                intent.putExtra("score", score);
+                startActivity(intent);
+            } else {
+                buttons.forEach(a -> a.setClickable(true));
+                number = number + 1;
+                setAnsweres();
+                setQuestion();
+            }
+            view.setClickable(false);
+            buttons.forEach(a -> a.setBackgroundColor(Color.GRAY));
+        }
+    }
+
 }
