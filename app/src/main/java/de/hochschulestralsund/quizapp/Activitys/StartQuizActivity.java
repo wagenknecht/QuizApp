@@ -28,11 +28,9 @@ public class StartQuizActivity extends AppCompatActivity implements AdapterView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_quiz);
 
-        //Dummy Adapter für Spinner Kategorie bis API/DB
         Spinner selectCategorySpinner = findViewById(R.id.selectCategorySpinner);
         selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
 
-        //Dummy Adapter für Spinner Schwierigkeit bis API/DB
         Spinner selectDifficultySpinner = findViewById(R.id.selectDifficultySpinner);
         selectDifficultySpinner.setAdapter(new ArrayAdapter<Difficulty>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Difficulty.values()));
     }
@@ -52,7 +50,6 @@ public class StartQuizActivity extends AppCompatActivity implements AdapterView.
         OpenTrivialService openTrivialService =new OpenTrivialService();
         Spinner cat = findViewById(R.id.selectCategorySpinner);
         Spinner dif = findViewById(R.id.selectDifficultySpinner);
-        //todo add right selector
         openTrivialService.getQuestions(10, (Difficulty) dif.getSelectedItem(), (Category) cat.getSelectedItem(), new QuestionResponseCallback() {
             @Override
             public void onQuestionResponse(List<Question> questionList) {

@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.Serializable;
 import java.util.List;
 
-import de.hochschulestralsund.quizapp.Api.OpenTrivialService;
 import de.hochschulestralsund.quizapp.Api.OpenTrivialServiceEndless;
 import de.hochschulestralsund.quizapp.Api.QuestionResponseCallback;
 import de.hochschulestralsund.quizapp.Entities.Category;
@@ -44,13 +43,11 @@ public class StartEndlessActivity extends AppCompatActivity implements AdapterVi
         Intent intent = new Intent(this, EndlessQuizActivity.class);
         OpenTrivialServiceEndless openTrivialService =new OpenTrivialServiceEndless();
         Spinner cat = findViewById(R.id.selectCategorySpinner);
-        Spinner dif = findViewById(R.id.selectDifficultySpinner);
-        //todo add right selector
+        intent.putExtra("category", (Category) cat.getSelectedItem());
         openTrivialService.getQuestions(50, (Category) cat.getSelectedItem(), new QuestionResponseCallback() {
             @Override
             public void onQuestionResponse(List<Question> questionList) {
                 questionList.forEach(question -> intent.putExtra("question", (Serializable) questionList));
-                System.out.println(questionList);
                 startActivity(intent);
             }
         });

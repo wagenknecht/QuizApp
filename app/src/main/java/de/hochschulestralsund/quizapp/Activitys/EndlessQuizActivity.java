@@ -5,15 +5,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
+import de.hochschulestralsund.quizapp.Api.OpenTrivialService;
+import de.hochschulestralsund.quizapp.Api.OpenTrivialServiceEndless;
+import de.hochschulestralsund.quizapp.Api.QuestionResponseCallback;
+import de.hochschulestralsund.quizapp.Entities.Category;
+import de.hochschulestralsund.quizapp.Entities.Difficulty;
 import de.hochschulestralsund.quizapp.Entities.Question;
 import de.hochschulestralsund.quizapp.R;
 
@@ -63,7 +71,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
                 imageView.setVisibility(View.INVISIBLE);
             }
             if (lives==0){
-                Intent intent=new Intent(this, HighscoreActivity.class);
+                Intent intent=new Intent(this, EndlessHighsoreActivity.class);
                 intent.putExtra("score",score);
                 startActivity(intent);
             }
@@ -72,6 +80,9 @@ public class EndlessQuizActivity extends AppCompatActivity {
                 setAnsweres();
                 setQuestion();
             }
+        }
+        if (number==50){
+            setContentView(R.layout.endless_end_reached_activity);
         }
     }
 
@@ -101,5 +112,25 @@ public class EndlessQuizActivity extends AppCompatActivity {
             }
         }
         return correctAnswere;
+    }
+
+    public void no(View view){
+        Intent intent=new Intent(this, EndlessHighsoreActivity.class);
+        intent.putExtra("score",score);
+        startActivity(intent);
+    }
+
+    public void yes(View view){
+        Intent intent = new Intent(this, EndlessQuizActivity.class);
+        OpenTrivialServiceEndless openTrivialService =new OpenTrivialServiceEndless();
+        Category category = (Category) getIntent().getSerializableExtra("category");
+        openTrivialService.getQuestions(50, category, new QuestionResponseCallback() {
+            @Override
+            public void onQuestionResponse(List<Question> questionList) {
+                questionList.forEach(question -> intent.putExtra("question", (Serializable) questionList));
+                startActivity(intent);
+            }
+        });
+        number=0;
     }
 }
