@@ -19,7 +19,7 @@ import java.util.List;
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
 import de.hochschulestralsund.quizapp.R;
 
-public class HighscoreActivity extends AppCompatActivity {
+public class EndlessHighsoreActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -29,7 +29,7 @@ public class HighscoreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.highscore_actitity);
+        setContentView(R.layout.endless_highscore_activity);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -45,7 +45,7 @@ public class HighscoreActivity extends AppCompatActivity {
             score = (Integer) getIntent().getSerializableExtra("score");
         }
 //        if (score>=DatabaseHighsore)
-            newHighscore();
+        newHighscore();
     }
 
     public void zurueck(View view){
@@ -54,13 +54,13 @@ public class HighscoreActivity extends AppCompatActivity {
     }
 
     public void retry(View view){
-        Intent intent = new Intent(this, StartQuizActivity.class);
+        Intent intent = new Intent(this, StartEndlessActivity.class);
         startActivity(intent);
     }
 
     public void newHighscore(){
         AlertDialog.Builder builder = new AlertDialog.Builder(
-                HighscoreActivity.this
+                EndlessHighsoreActivity.this
         );
         builder.setTitle("\uD83C\uDF89 new high score: "+score+" points \uD83C\uDF89");
         builder.setCancelable(false);

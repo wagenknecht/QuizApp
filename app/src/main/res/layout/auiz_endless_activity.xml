@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/Frage"
+        android:layout_width="308dp"
+        android:layout_height="272dp"
+        android:text="Hier könnte ihre Frage stehen"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/antwort1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lives3" />
+
+    <TextView
+        android:id="@+id/QuestionNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Question Number: "
+        app:layout_constraintBottom_toTopOf="@+id/Frage"
+        app:layout_constraintEnd_toStartOf="@+id/lives3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frageTitelNummer" />
+
+
+    <TextView
+        android:id="@+id/frageTitelNummer"
+        android:layout_width="340dp"
+        android:layout_height="51dp"
+        android:text="TextView"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/lives3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/antwort1"
+        android:layout_width="200dp"
+        android:layout_height="51dp"
+        android:onClick="answere"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/antwort3"
+        app:layout_constraintEnd_toStartOf="@+id/antwort2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Frage" />
+
+    <Button
+        android:id="@+id/antwort2"
+        android:layout_width="200dp"
+        android:layout_height="51dp"
+        android:onClick="answere"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/antwort4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/antwort1"
+        app:layout_constraintTop_toBottomOf="@+id/Frage" />
+
+    <Button
+        android:id="@+id/antwort3"
+        android:layout_width="200dp"
+        android:layout_height="51dp"
+        android:onClick="answere"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/antwort4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/antwort1" />
+
+    <Button
+        android:id="@+id/antwort4"
+        android:layout_width="200dp"
+        android:layout_height="51dp"
+        android:onClick="answere"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/antwort3"
+        app:layout_constraintTop_toBottomOf="@+id/antwort2" />
+
+    <ImageView
+        android:id="@+id/lives3"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/Frage"
+        app:layout_constraintEnd_toStartOf="@+id/lives2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/QuestionNumber"
+        app:layout_constraintTop_toBottomOf="@+id/frageTitelNummer"
+        app:srcCompat="@drawable/heart_icon_by_marco_livolsi2014_9_580x386" />
+
+    <ImageView
+        android:id="@+id/lives2"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/Frage"
+        app:layout_constraintEnd_toStartOf="@+id/lives1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/lives3"
+        app:layout_constraintTop_toBottomOf="@+id/frageTitelNummer"
+        app:srcCompat="@drawable/heart_icon_by_marco_livolsi2014_9_580x386" />
+
+    <ImageView
+        android:id="@+id/lives1"
+        android:layout_width="80dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/Frage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/lives2"
+        app:layout_constraintTop_toBottomOf="@+id/frageTitelNummer"
+        app:srcCompat="@drawable/heart_icon_by_marco_livolsi2014_9_580x386" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
