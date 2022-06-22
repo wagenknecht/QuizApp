@@ -1,6 +1,7 @@
 package de.hochschulestralsund.quizapp.Activitys;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -52,34 +53,34 @@ public class EndlessQuizActivity extends AppCompatActivity {
 
     //gets Triggert when a Button is clicked
     public void answere(View view) {
+        //check if questions are all asked
         if (number % questionsPerApiCall == 0) {
             loadMoreQuestions();
         }
+        btnContinue.setClickable(true);
+        correctAnswere.setBackgroundColor(Color.GREEN);
+        buttons.forEach(a -> a.setClickable(false));
         //if question is correct
         if (view.getId() == correctAnswere.getId()) {
-            score = score + 1;
-            number = number + 1;
-            setAnsweres();
-            setQuestion();
+            score++;
         } else {
-            lives = lives - 1;
-            if (lives == 2) {
-                ImageView imageView = findViewById(R.id.lives3);
-                imageView.setVisibility(View.INVISIBLE);
+            lives--;
+            ImageView imageView;
+            switch (lives) {
+                case 2:
+                    imageView = findViewById(R.id.lives3);
+                    imageView.setVisibility(View.INVISIBLE);
+                    break;
+                case 1:
+                    imageView = findViewById(R.id.lives2);
+                    imageView.setVisibility(View.INVISIBLE);
+                    break;
+                case 0:
+                    imageView = findViewById(R.id.lives1);
+                    imageView.setVisibility(View.INVISIBLE);
+                    break;
             }
-            if (lives == 1) {
-                ImageView imageView = findViewById(R.id.lives2);
-                imageView.setVisibility(View.INVISIBLE);
-            }
-            if (lives == 0) {
-                Intent intent = new Intent(this, EndlessHighsoreActivity.class);
-                intent.putExtra("score", score);
-                startActivity(intent);
-            } else {
-                number = number + 1;
-                setAnsweres();
-                setQuestion();
-            }
+            view.setBackgroundColor(Color.RED);
         }
     }
 
@@ -112,6 +113,18 @@ public class EndlessQuizActivity extends AppCompatActivity {
     }
 
     public void clickContinue(View view) {
+        if(lives == 0){
+            Intent intent = new Intent(this, HighscoreActivity.class);
+            intent.putExtra("score", score);
+            startActivity(intent);
+        } else {
+                buttons.forEach(a -> a.setClickable(true));
+                number++;
+                setAnsweres();
+                setQuestion();
+            }
+            view.setClickable(false);
+            buttons.forEach(a -> a.setBackgroundColor(Color.GRAY));
 
     }
 
