@@ -44,7 +44,7 @@ public class StartEndlessActivity extends AppCompatActivity implements AdapterVi
         OpenTrivialServiceEndless openTrivialService = new OpenTrivialServiceEndless();
         Spinner cat = findViewById(R.id.selectCategorySpinner);
         intent.putExtra("category", (Category) cat.getSelectedItem());
-        openTrivialService.getQuestions(50, (Category) cat.getSelectedItem(), new QuestionResponseCallback() {
+        openTrivialService.getQuestions(10, (Category) cat.getSelectedItem(), new QuestionResponseCallback() {
             @Override
             public void onQuestionResponse(List<Question> questionList) {
                 questionList.forEach(question -> intent.putExtra("question", (Serializable) questionList));

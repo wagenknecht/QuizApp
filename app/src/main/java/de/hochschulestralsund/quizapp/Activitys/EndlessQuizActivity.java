@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -29,6 +28,8 @@ public class EndlessQuizActivity extends AppCompatActivity {
     private int number;
     private List<Question> question;
     List<Button> buttons = new ArrayList<>();
+    private Button btnContinue;
+    private int questionsPerApiCall = 10;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class EndlessQuizActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             question = (List<Question>) getIntent().getSerializableExtra("question");
         }
+        btnContinue = findViewById(R.id.btnContinue);
+        btnContinue.setClickable(false);
         setAnsweres();
         setQuestion();
         number = 0;
@@ -49,6 +52,9 @@ public class EndlessQuizActivity extends AppCompatActivity {
 
     //gets Triggert when a Button is clicked
     public void answere(View view) {
+        if (number % questionsPerApiCall == 0) {
+            loadMoreQuestions();
+        }
         //if question is correct
         if (view.getId() == correctAnswere.getId()) {
             score = score + 1;
@@ -75,16 +81,13 @@ public class EndlessQuizActivity extends AppCompatActivity {
                 setQuestion();
             }
         }
-        if (number == 50) {
-            setContentView(R.layout.endless_end_reached_activity);
-        }
     }
 
     public void setQuestion() {
         TextView questionTitel = findViewById(R.id.frageTitelNummer);
         TextView Question = findViewById(R.id.Frage);
-        questionTitel.setText(question.get(number).getCategory());
-        Question.setText(question.get(number).getQuestion());
+        questionTitel.setText(question.get(number % questionsPerApiCall).getCategory());
+        Question.setText(question.get(number % questionsPerApiCall).getQuestion());
         TextView Number = findViewById(R.id.QuestionNumber);
         int display = number + 1;
         Number.setText("Question Number: " + display);
@@ -96,35 +99,34 @@ public class EndlessQuizActivity extends AppCompatActivity {
         int correct = random.nextInt(4);
         correctAnswere = buttons.get(correct); //save CorrectAnswer to global string to compare result
         //todo remove string correct, just for testing
-        correctAnswere.setText("correct: " + question.get(number).getCorrect_answer());
+        correctAnswere.setText("correct: " + question.get(number % questionsPerApiCall).getCorrect_answer());
         int j = 0;
         for (int i = 0; i < buttons.size(); i++) {
             if (i != correct) {
                 Button button = buttons.get(i);
-                button.setText(question.get(number).getIncorrect_answers().get(j));
+                button.setText(question.get(number % questionsPerApiCall).getIncorrect_answers().get(j));
                 j++;
             }
         }
         return correctAnswere;
     }
 
-    public void no(View view) {
-        Intent intent = new Intent(this, EndlessHighsoreActivity.class);
-        intent.putExtra("score", score);
-        startActivity(intent);
+    public void clickContinue(View view) {
+
     }
 
-    public void yes(View view) {
-        Intent intent = new Intent(this, EndlessQuizActivity.class);
+    public void loadMoreQuestions() {
         OpenTrivialServiceEndless openTrivialService = new OpenTrivialServiceEndless();
         Category category = (Category) getIntent().getSerializableExtra("category");
-        openTrivialService.getQuestions(50, category, new QuestionResponseCallback() {
+        openTrivialService.getQuestions(questionsPerApiCall, category, new QuestionResponseCallback() {
+
             @Override
             public void onQuestionResponse(List<Question> questionList) {
-                questionList.forEach(question -> intent.putExtra("question", (Serializable) questionList));
-                startActivity(intent);
+                question = questionList;
             }
         });
-        number = 0;
+
     }
+
+
 }
