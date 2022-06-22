@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -16,18 +17,19 @@ import java.util.Random;
 import de.hochschulestralsund.quizapp.Entities.Question;
 import de.hochschulestralsund.quizapp.R;
 
-public class QuizActivity extends AppCompatActivity {
+public class EndlessQuizActivity extends AppCompatActivity {
 
     private Button correctAnswere;
     private int score;
-    private List<Question> question;
+    private int lives =3;
     private int number;
+    private List<Question> question;
     List<Button>buttons=new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.quiz_activity);
+        setContentView(R.layout.auiz_endless_activity);
         buttons.add(findViewById(R.id.antwort1));
         buttons.add(findViewById(R.id.antwort2));
         buttons.add(findViewById(R.id.antwort3));
@@ -46,8 +48,21 @@ public class QuizActivity extends AppCompatActivity {
         //if question is correct
         if (view.getId()==correctAnswere.getId()){
             score=score+1;
-            //check if all questions are answered/finish
-            if (number==9){
+            number=number+1;
+            setAnsweres();
+            setQuestion();
+        }
+        else{
+            lives=lives-1;
+            if (lives==2){
+                ImageView imageView=findViewById(R.id.lives3);
+                imageView.setVisibility(View.INVISIBLE);
+            }
+            if (lives==1){
+                ImageView imageView=findViewById(R.id.lives2);
+                imageView.setVisibility(View.INVISIBLE);
+            }
+            if (lives==0){
                 Intent intent=new Intent(this, HighscoreActivity.class);
                 intent.putExtra("score",score);
                 startActivity(intent);
@@ -57,11 +72,6 @@ public class QuizActivity extends AppCompatActivity {
                 setAnsweres();
                 setQuestion();
             }
-        }
-        else{
-            Intent intent=new Intent(this, HighscoreActivity.class);
-            intent.putExtra("score",score);
-            startActivity(intent);
         }
     }
 
@@ -85,9 +95,9 @@ public class QuizActivity extends AppCompatActivity {
         int j = 0;
         for (int i =0;i<buttons.size();i++){
             if (i!=correct){
-               Button button = buttons.get(i);
-               button.setText(question.get(number).getIncorrect_answers().get(j));
-               j++;
+                Button button = buttons.get(i);
+                button.setText(question.get(number).getIncorrect_answers().get(j));
+                j++;
             }
         }
         return correctAnswere;

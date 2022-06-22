@@ -68,7 +68,7 @@ public class HighscoreActivity extends AppCompatActivity {
         final EditText input = new EditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
-        builder.setPositiveButton("Speichern", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 StringBuilder stringBuilder = new StringBuilder();
@@ -77,7 +77,7 @@ public class HighscoreActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton("nicht speichern", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("don't save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
@@ -86,23 +86,3 @@ public class HighscoreActivity extends AppCompatActivity {
         builder.show();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
