@@ -33,7 +33,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.auiz_endless_activity);
+        setContentView(R.layout.quiz_endless_activity);
         buttons.add(findViewById(R.id.antwort1));
         buttons.add(findViewById(R.id.antwort2));
         buttons.add(findViewById(R.id.antwort3));
