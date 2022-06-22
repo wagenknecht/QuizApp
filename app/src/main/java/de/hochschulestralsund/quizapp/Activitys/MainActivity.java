@@ -1,10 +1,10 @@
 package de.hochschulestralsund.quizapp.Activitys;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import de.hochschulestralsund.quizapp.R;
 
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         //add Intent to Settings
     }
 
-    public void endless(View view){
+    public void endless(View view) {
         Intent highscore = new Intent(MainActivity.this, StartEndlessActivity.class);
         startActivity(highscore);
     }

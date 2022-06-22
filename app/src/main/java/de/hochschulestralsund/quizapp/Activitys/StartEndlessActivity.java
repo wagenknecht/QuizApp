@@ -18,7 +18,7 @@ import de.hochschulestralsund.quizapp.Entities.Category;
 import de.hochschulestralsund.quizapp.Entities.Question;
 import de.hochschulestralsund.quizapp.R;
 
-public class StartEndlessActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class StartEndlessActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +26,8 @@ public class StartEndlessActivity extends AppCompatActivity implements AdapterVi
         setContentView(R.layout.activity_start_endless);
 
         Spinner selectCategorySpinner = findViewById(R.id.selectCategorySpinner);
-        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
-}
+        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Category.values()));
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -39,9 +39,9 @@ public class StartEndlessActivity extends AppCompatActivity implements AdapterVi
 
     }
 
-    public void startQuiz(View view){
+    public void startQuiz(View view) {
         Intent intent = new Intent(this, EndlessQuizActivity.class);
-        OpenTrivialServiceEndless openTrivialService =new OpenTrivialServiceEndless();
+        OpenTrivialServiceEndless openTrivialService = new OpenTrivialServiceEndless();
         Spinner cat = findViewById(R.id.selectCategorySpinner);
         intent.putExtra("category", (Category) cat.getSelectedItem());
         openTrivialService.getQuestions(50, (Category) cat.getSelectedItem(), new QuestionResponseCallback() {
