@@ -103,7 +103,7 @@ public class QuizActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 buttons.forEach(a -> a.setClickable(true));
-                number = number + 1;
+                number++;
                 setAnsweres();
                 setQuestion();
             }
