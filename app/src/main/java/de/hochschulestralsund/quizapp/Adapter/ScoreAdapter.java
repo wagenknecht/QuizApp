@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Activitys.HighscoreActivity;
+import de.hochschulestralsund.quizapp.Database.Bestenliste;
 import de.hochschulestralsund.quizapp.R;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> {
-    List<String> values; //todo zum gewünschten DTO ändern
+    List<Bestenliste> values; //todo zum gewünschten DTO ändern
 
 
-    public ScoreAdapter(List<String> input){
+    public ScoreAdapter(List<Bestenliste> input){
         values = input;
     }
 
@@ -36,7 +37,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
         }
     }
 
-    public void add(int position, String item) {
+    public void add(int position, Bestenliste item) {
         values.add(position, item);
         notifyItemInserted(position);
     }
@@ -59,7 +60,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ScoreAdapter.ViewHolder holder, int position) {
-        holder.score.setText(values.get(position));
+        holder.score.setText(values.get(position).getName());
         holder.name.setText("name");
         holder.difficulty.setText("hard");
     }

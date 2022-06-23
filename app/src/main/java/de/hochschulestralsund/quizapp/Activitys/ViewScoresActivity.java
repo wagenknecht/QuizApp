@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
+import de.hochschulestralsund.quizapp.Database.AppDatabase;
+import de.hochschulestralsund.quizapp.Database.Bestenliste;
 import de.hochschulestralsund.quizapp.Entities.Category;
 import de.hochschulestralsund.quizapp.R;
 
@@ -24,6 +26,8 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private AppDatabase database;
+    private Spinner selectCategorySpinner;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +43,7 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         for (int i = 0; i < 30; i++) {
             easy.add("easy" + i);
         }
-        mAdapter = new ScoreAdapter(easy);
+        //mAdapter = new ScoreAdapter(easy);
         recyclerView.setAdapter(mAdapter);
         Spinner selectCategorySpinner = findViewById(R.id.spinnerCategory);
         selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
@@ -51,11 +55,14 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
     }
 
     public void easy(View view){
-        List<String> easy = new ArrayList<>();
+        /*List<String> easy = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             easy.add("easy" + i);
-        }// define an adapter
-        mAdapter = new ScoreAdapter(easy);
+        }*/
+        // define an adapter
+        //get Table Bestenliste
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryEntry(selectCategorySpinner.toString());
+        mAdapter = new ScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -64,7 +71,7 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         for (int i = 0; i < 30; i++) {
             medium.add("medium" + i);
         }
-        mAdapter = new ScoreAdapter(medium);
+        //mAdapter = new ScoreAdapter(medium);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -73,7 +80,7 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         for (int i = 0; i < 30; i++) {
             hard.add("hard" + i);
         }
-        mAdapter = new ScoreAdapter(hard);
+        //mAdapter = new ScoreAdapter(hard);
         recyclerView.setAdapter(mAdapter);
     }
 

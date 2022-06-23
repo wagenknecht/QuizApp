@@ -1,4 +1,4 @@
-package de.hochschulestralsund.quizapp;
+package de.hochschulestralsund.quizapp.Database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -8,6 +8,8 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import java.util.List;
+
+import de.hochschulestralsund.quizapp.Database.Bestenliste;
 
 @Dao
 public interface BestenlisteDao {
@@ -22,6 +24,9 @@ public interface BestenlisteDao {
 
     @Query("select * from bestenliste where id = :bestenlisteId")
     Bestenliste getBestenlisteEintrag(long bestenlisteId);
+
+    @Query("select * from bestenliste where kategorie = :kategorie")
+    List<Bestenliste> getBestenlisteCategoryEntry(String kategorie);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateBestenliste(Bestenliste bestenliste);

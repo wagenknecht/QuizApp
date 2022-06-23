@@ -17,6 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
+import de.hochschulestralsund.quizapp.Database.AppDatabase;
+import de.hochschulestralsund.quizapp.Database.Bestenliste;
+import de.hochschulestralsund.quizapp.Entities.Category;
+import de.hochschulestralsund.quizapp.Entities.Difficulty;
 import de.hochschulestralsund.quizapp.R;
 
 public class HighscoreActivity extends AppCompatActivity {
@@ -25,6 +29,7 @@ public class HighscoreActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     int score;
+    private AppDatabase database;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,11 +39,13 @@ public class HighscoreActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        List<String> input = new ArrayList<>();
+        database = AppDatabase.getDatabase(getApplicationContext());
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getAllBestenlisteEintraege();
+        /*List<String> input = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             input.add(String.valueOf(100-i));
-        }// define an adapter
-        mAdapter = new ScoreAdapter(input);
+        }// define an adapter*/
+        mAdapter = new ScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);
 
         if(getIntent().getExtras() != null) {
@@ -74,6 +81,10 @@ public class HighscoreActivity extends AppCompatActivity {
                 StringBuilder stringBuilder = new StringBuilder();
                 System.out.println(input.getText().toString());
                 //todo add to DB, reload page after insert to display new item
+
+                Bestenliste newEntry = new Bestenliste(input.getText().toString(), "GENERAL_KNOWLEDGE", Difficulty.EASY.getValue(), score);
+                database.bestenlisteDao().addSpieler(newEntry);
+                database.bestenlisteDao().updateBestenliste(newEntry);
             }
         });
 
