@@ -1,9 +1,11 @@
 package de.hochschulestralsund.quizapp.Activitys;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,7 +47,6 @@ public class QuizActivity extends AppCompatActivity {
         setAnsweres();
         setQuestion();
         number = 0;
-        gameover = false;
     }
 
     //gets Triggert when a Button is clicked
@@ -57,7 +58,6 @@ public class QuizActivity extends AppCompatActivity {
         if (view.getId() == correctAnswere.getId()) {
             score = score + 1;
         } else {
-            gameover = true;
             view.setBackgroundColor(Color.RED);
         }
     }
@@ -91,25 +91,33 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void clickContinue(View view) {
-        if(gameover){
+
+        //check if all questions are answered/finish
+        if (number == 9) {
             Intent intent = new Intent(this, HighscoreActivity.class);
             intent.putExtra("score", score);
             startActivity(intent);
         } else {
-            //check if all questions are answered/finish
-            if (number == 9) {
-                Intent intent = new Intent(this, HighscoreActivity.class);
-                intent.putExtra("score", score);
-                startActivity(intent);
-            } else {
-                buttons.forEach(a -> a.setClickable(true));
-                number++;
-                setAnsweres();
-                setQuestion();
-            }
-            view.setClickable(false);
-            buttons.forEach(a -> a.setBackgroundColor(Color.GRAY));
+            buttons.forEach(a -> a.setClickable(true));
+            number++;
+            setAnsweres();
+            setQuestion();
         }
+        view.setClickable(false);
+        buttons.forEach(a -> a.setBackgroundColor(fetchPrimaryColor()));
+
+    }
+
+    //method to get primaryColor
+    private int fetchPrimaryColor() {
+        TypedValue typedValue = new TypedValue();
+
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { androidx.appcompat.R.attr.colorPrimary });
+        int color = a.getColor(0, 0);
+
+        a.recycle();
+
+        return color;
     }
 
 }

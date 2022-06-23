@@ -1,8 +1,10 @@
 package de.hochschulestralsund.quizapp.Activitys;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -124,7 +126,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
                 setQuestion();
             }
             view.setClickable(false);
-            buttons.forEach(a -> a.setBackgroundColor(Color.GRAY));
+            buttons.forEach(a -> a.setBackgroundColor(fetchPrimaryColor()));
 
     }
 
@@ -138,7 +140,18 @@ public class EndlessQuizActivity extends AppCompatActivity {
                 question = questionList;
             }
         });
+    }
 
+    private int fetchPrimaryColor() {
+
+        TypedValue typedValue = new TypedValue();
+
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { androidx.appcompat.R.attr.colorPrimary });
+        int color = a.getColor(0, 0);
+
+        a.recycle();
+
+        return color;
     }
 
 
