@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
             question = (List<Question>) getIntent().getSerializableExtra("question");
         }
         btnContinue = findViewById(R.id.btnContinue);
-        btnContinue.setClickable(false);
+        btnContinue.setVisibility(View.INVISIBLE);
         setAnsweres();
         setQuestion();
         number = 0;
@@ -59,7 +60,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
         if (number % questionsPerApiCall == 0) {
             loadMoreQuestions();
         }
-        btnContinue.setClickable(true);
+        btnContinue.setVisibility(View.VISIBLE);
         correctAnswere.setBackgroundColor(Color.GREEN);
         buttons.forEach(a -> a.setClickable(false));
         //if question is correct
@@ -125,8 +126,9 @@ public class EndlessQuizActivity extends AppCompatActivity {
                 setAnsweres();
                 setQuestion();
             }
-            view.setClickable(false);
-            buttons.forEach(a -> a.setBackgroundColor(fetchPrimaryColor()));
+            view.setVisibility(View.INVISIBLE);
+            buttons.forEach(a -> a.setBackgroundColor(fetchcolorOnPrimary()));
+
 
     }
 
@@ -142,11 +144,11 @@ public class EndlessQuizActivity extends AppCompatActivity {
         });
     }
 
-    private int fetchPrimaryColor() {
+    private int fetchcolorOnPrimary() {
 
         TypedValue typedValue = new TypedValue();
 
-        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { androidx.appcompat.R.attr.colorPrimary });
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { com.google.android.material.R.attr.colorOnPrimary });
         int color = a.getColor(0, 0);
 
         a.recycle();
