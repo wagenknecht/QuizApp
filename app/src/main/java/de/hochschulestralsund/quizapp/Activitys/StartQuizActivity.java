@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,16 +22,27 @@ import de.hochschulestralsund.quizapp.R;
 
 public class StartQuizActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    private Button btnStart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_quiz);
 
+        btnStart = findViewById(R.id.startQuiz);
+        btnStart.setClickable(true);
+
         Spinner selectCategorySpinner = findViewById(R.id.selectCategorySpinner);
-        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Category.values()));
+        selectCategorySpinner.setAdapter(new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Category.values()));
 
         Spinner selectDifficultySpinner = findViewById(R.id.selectDifficultySpinner);
-        selectDifficultySpinner.setAdapter(new ArrayAdapter<Difficulty>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Difficulty.values()));
+        selectDifficultySpinner.setAdapter(new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Difficulty.values()));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        btnStart.setClickable(true);
     }
 
     @Override
@@ -44,6 +56,7 @@ public class StartQuizActivity extends AppCompatActivity implements AdapterView.
     }
 
     public void startQuiz(View view) {
+        btnStart.setClickable(false);
         Intent intent = new Intent(this, QuizActivity.class);
         OpenTrivialService openTrivialService = new OpenTrivialService();
         Spinner cat = findViewById(R.id.selectCategorySpinner);
