@@ -1,5 +1,7 @@
 package de.hochschulestralsund.quizapp.Api;
 
+import android.text.Html;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -41,7 +43,8 @@ public class OpenTrivialService {
                 ObjectMapper mapper = new ObjectMapper();
                 try {
                     TypeReference<List<Question>> mapType = new TypeReference<List<Question>>() {};
-                    callback.onQuestionResponse(mapper.readValue(response.get("results").toString(), mapType));
+                    String responseString = Html.fromHtml(response.get("results").toString().replaceAll("&quot;", "'"), Html.FROM_HTML_MODE_LEGACY).toString();
+                    callback.onQuestionResponse(mapper.readValue(responseString, mapType));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
