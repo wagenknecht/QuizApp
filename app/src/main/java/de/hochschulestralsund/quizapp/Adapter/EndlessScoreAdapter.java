@@ -16,10 +16,10 @@ import de.hochschulestralsund.quizapp.Database.Bestenliste;
 import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.R;
 
-public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> {
-    List<Bestenliste> values; //todo zum gewünschten DTO ändern
+public class EndlessScoreAdapter extends RecyclerView.Adapter<EndlessScoreAdapter.ViewHolder> {
+    List<EndlessHighscore> values; //todo zum gewünschten DTO ändern
 
-    public ScoreAdapter(List<Bestenliste> input){
+    public EndlessScoreAdapter(List<EndlessHighscore> input){
         values = input;
     }
 
@@ -38,7 +38,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
         }
     }
 
-    public void add(int position, Bestenliste item) {
+    public void add(int position, EndlessHighscore item) {
         values.add(position, item);
         notifyItemInserted(position);
     }
@@ -54,17 +54,17 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View v = inflater.inflate(R.layout.score, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+        ViewHolder viewHolder = new ViewHolder(v);
 
-        return vh;
+        return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ScoreAdapter.ViewHolder holder, int position) {
-        String score = String.valueOf(values.get(position).getScore() + "/10");
+    public void onBindViewHolder(@NonNull EndlessScoreAdapter.ViewHolder holder, int position) {
+        String score = String.valueOf(values.get(position).getScore());
         holder.score.setText(score);
         holder.name.setText(values.get(position).getName());
-        holder.difficulty.setText(values.get(position).getSchwierigkeit());
+        holder.difficulty.setText("/");
     }
 
     @Override

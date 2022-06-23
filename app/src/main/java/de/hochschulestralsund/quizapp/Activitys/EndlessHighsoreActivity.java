@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hochschulestralsund.quizapp.Adapter.EndlessScoreAdapter;
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
 import de.hochschulestralsund.quizapp.Database.AppDatabase;
+import de.hochschulestralsund.quizapp.Database.Bestenliste;
 import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.R;
 
@@ -28,6 +30,7 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     int score;
     private AppDatabase database;
+    private String category;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,16 +41,17 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         database = AppDatabase.getDatabase(getApplicationContext());
-        //List<EndlessHighscore> endlessHighscore = database.
+        List<EndlessHighscore> endlessHighscore = database.endlessHighscoreDao().getEndlessHighscoreCategoryEntry(category);
         /*List<String> input = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             input.add(String.valueOf(100-i));
         }// define an adapter*/
-        //mAdapter = new ScoreAdapter(endlessHighscore);
-        //recyclerView.setAdapter(mAdapter);
+        mAdapter = new EndlessScoreAdapter(endlessHighscore);
+        recyclerView.setAdapter(mAdapter);
 
         if(getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
+            category = getIntent().getStringExtra("category");
         }
 //        if (score>=DatabaseHighsore)
         newHighscore();
@@ -79,6 +83,10 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
                 StringBuilder stringBuilder = new StringBuilder();
                 System.out.println(input.getText().toString());
                 //todo add to DB, reload page after insert to display new item
+                EndlessHighscore newEntry = new EndlessHighscore(input.getText().toString(), category, score);
+                database.endlessHighscoreDao().addSpieler(newEntry);
+                database.endlessHighscoreDao().updateEndlessHighscore(newEntry);
+                updateDatabase();
             }
         });
 
@@ -89,5 +97,11 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    private void updateDatabase()   {
+        List<EndlessHighscore> bestenliste = database.endlessHighscoreDao().getEndlessHighscoreCategoryEntry(category);
+        mAdapter = new EndlessScoreAdapter(bestenliste);
+        recyclerView.setAdapter(mAdapter);
     }
 }

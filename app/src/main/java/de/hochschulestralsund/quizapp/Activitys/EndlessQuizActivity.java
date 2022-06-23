@@ -32,6 +32,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
     private int lives =3;
     private int number;
     private List<Question> question;
+    private String category;
     List<Button>buttons=new ArrayList<>();
 
     @Override
@@ -42,9 +43,10 @@ public class EndlessQuizActivity extends AppCompatActivity {
         buttons.add(findViewById(R.id.antwort2));
         buttons.add(findViewById(R.id.antwort3));
         buttons.add(findViewById(R.id.antwort4));
-        //get Questions
+        //get Questions and category
         if(getIntent().getExtras() != null) {
             question = (List<Question>) getIntent().getSerializableExtra("question");
+            category = getIntent().getSerializableExtra("category").toString();
         }
         setAnsweres();
         setQuestion();
@@ -73,6 +75,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
             if (lives==0){
                 Intent intent=new Intent(this, EndlessHighsoreActivity.class);
                 intent.putExtra("score",score);
+                intent.putExtra("category", category);
                 startActivity(intent);
             }
             else{

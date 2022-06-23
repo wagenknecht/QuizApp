@@ -40,13 +40,6 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         database = AppDatabase.getDatabase(getApplicationContext());
-        //test data
-        List<String> easy = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            easy.add("easy" + i);
-        }
-        //mAdapter = new ScoreAdapter(easy);
-        //recyclerView.setAdapter(mAdapter);
         selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
         List<Bestenliste> bestenliste1 = database.bestenlisteDao().getAllBestenlisteEintraege();
         mAdapter = new ScoreAdapter(bestenliste1);
