@@ -50,6 +50,8 @@ public class StartQuizActivity extends AppCompatActivity implements AdapterView.
         OpenTrivialService openTrivialService =new OpenTrivialService();
         Spinner cat = findViewById(R.id.selectCategorySpinner);
         Spinner dif = findViewById(R.id.selectDifficultySpinner);
+        intent.putExtra("category", (Serializable) cat.getSelectedItem());
+        intent.putExtra("difficulty", (Serializable) dif.getSelectedItem());
         openTrivialService.getQuestions(10, (Difficulty) dif.getSelectedItem(), (Category) cat.getSelectedItem(), new QuestionResponseCallback() {
             @Override
             public void onQuestionResponse(List<Question> questionList) {

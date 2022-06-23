@@ -29,6 +29,8 @@ public class HighscoreActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     int score;
+    private String category;
+    private String difficulty;
     private AppDatabase database;
 
     @Override
@@ -40,19 +42,24 @@ public class HighscoreActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         database = AppDatabase.getDatabase(getApplicationContext());
-        List<Bestenliste> bestenliste = database.bestenlisteDao().getAllBestenlisteEintraege();
+        //List<Bestenliste> bestenliste = database.bestenlisteDao().getAllBestenlisteEintraege();
         /*List<String> input = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             input.add(String.valueOf(100-i));
         }// define an adapter*/
+        //mAdapter = new ScoreAdapter(bestenliste);
+        //recyclerView.setAdapter(mAdapter);
+
+        if (getIntent().getExtras() != null) {
+            score = (Integer) getIntent().getSerializableExtra("score");
+            category = getIntent().getStringExtra("category");
+            difficulty = getIntent().getStringExtra("difficulty");
+        }
+       //if (score>=DatabaseHighsore)
+        newHighscore();
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
         mAdapter = new ScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);
-
-        if(getIntent().getExtras() != null) {
-            score = (Integer) getIntent().getSerializableExtra("score");
-        }
-//        if (score>=DatabaseHighsore)
-            newHighscore();
     }
 
     public void zurueck(View view){
@@ -82,9 +89,10 @@ public class HighscoreActivity extends AppCompatActivity {
                 System.out.println(input.getText().toString());
                 //todo add to DB, reload page after insert to display new item
 
-                Bestenliste newEntry = new Bestenliste(input.getText().toString(), "GENERAL_KNOWLEDGE", Difficulty.EASY.getValue(), score);
+                Bestenliste newEntry = new Bestenliste(input.getText().toString(), category, difficulty, score);
                 database.bestenlisteDao().addSpieler(newEntry);
                 database.bestenlisteDao().updateBestenliste(newEntry);
+                updateDatabase();
             }
         });
 
@@ -95,5 +103,11 @@ public class HighscoreActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    private void updateDatabase()   {
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
+        mAdapter = new ScoreAdapter(bestenliste);
+        recyclerView.setAdapter(mAdapter);
     }
 }

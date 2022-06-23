@@ -21,6 +21,8 @@ public class QuizActivity extends AppCompatActivity {
     private Button correctAnswere;
     private int score;
     private List<Question> question;
+    private String category;
+    private String difficulty;
     private int number;
     List<Button>buttons=new ArrayList<>();
 
@@ -35,6 +37,8 @@ public class QuizActivity extends AppCompatActivity {
         //get Questions
         if(getIntent().getExtras() != null) {
             question = (List<Question>) getIntent().getSerializableExtra("question");
+            category = getIntent().getSerializableExtra("category").toString();
+            difficulty = getIntent().getSerializableExtra("difficulty").toString();
         }
         setAnsweres();
         setQuestion();
@@ -61,6 +65,8 @@ public class QuizActivity extends AppCompatActivity {
         else{
             Intent intent=new Intent(this, HighscoreActivity.class);
             intent.putExtra("score",score);
+            intent.putExtra("difficulty", difficulty);
+            intent.putExtra("category", category);
             startActivity(intent);
         }
     }

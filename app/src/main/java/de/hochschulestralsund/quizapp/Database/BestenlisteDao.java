@@ -25,8 +25,8 @@ public interface BestenlisteDao {
     @Query("select * from bestenliste where id = :bestenlisteId")
     Bestenliste getBestenlisteEintrag(long bestenlisteId);
 
-    @Query("select * from bestenliste where kategorie = :kategorie")
-    List<Bestenliste> getBestenlisteCategoryEntry(String kategorie);
+    @Query("select * from bestenliste where kategorie = :kategorie and schwierigkeit = :difficulty")
+    List<Bestenliste> getBestenlisteCategoryDifficultyEntry(String kategorie, String difficulty);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateBestenliste(Bestenliste bestenliste);

@@ -60,9 +60,10 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ScoreAdapter.ViewHolder holder, int position) {
-        holder.score.setText(values.get(position).getName());
-        holder.name.setText("name");
-        holder.difficulty.setText("hard");
+        String score = String.valueOf(values.get(position).getScore() + "/10");
+        holder.score.setText(score);
+        holder.name.setText(values.get(position).getName());
+        holder.difficulty.setText(values.get(position).getSchwierigkeit());
     }
 
     @Override

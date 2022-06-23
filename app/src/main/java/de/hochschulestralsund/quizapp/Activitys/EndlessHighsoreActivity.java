@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
+import de.hochschulestralsund.quizapp.Database.AppDatabase;
+import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.R;
 
 public class EndlessHighsoreActivity extends AppCompatActivity {
@@ -25,6 +27,7 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     int score;
+    private AppDatabase database;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,12 +37,14 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        List<String> input = new ArrayList<>();
+        database = AppDatabase.getDatabase(getApplicationContext());
+        //List<EndlessHighscore> endlessHighscore = database.
+        /*List<String> input = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             input.add(String.valueOf(100-i));
-        }// define an adapter
-        mAdapter = new ScoreAdapter(input);
-        recyclerView.setAdapter(mAdapter);
+        }// define an adapter*/
+        //mAdapter = new ScoreAdapter(endlessHighscore);
+        //recyclerView.setAdapter(mAdapter);
 
         if(getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
