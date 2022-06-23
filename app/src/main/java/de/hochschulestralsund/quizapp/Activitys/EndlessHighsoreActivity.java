@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.EndlessScoreAdapter;
@@ -54,7 +55,7 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
             category = getIntent().getStringExtra("category");
         }
 //        if (score>=DatabaseHighsore)
-        newHighscore();
+        addNewHighscore();
     }
 
     public void zurueck(View view){
@@ -97,6 +98,36 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    private void addNewHighscore() {
+        List<EndlessHighscore> bestenliste = database.endlessHighscoreDao().getEndlessHighscoreCategoryEntry(category);
+        int lowestScore = 10;
+        EndlessHighscore entryWithLowestScore = null;
+        if (bestenliste.size() >= 10) {
+            Iterator<EndlessHighscore> iterator = bestenliste.iterator();
+
+            while (iterator.hasNext()) {
+                EndlessHighscore entry = iterator.next();
+                int scoreBestenliste = entry.getScore();
+                //search lowest score
+                if(scoreBestenliste < lowestScore)  {
+                    lowestScore = scoreBestenliste;
+                    entryWithLowestScore = entry;
+                }
+
+            }
+
+            if(lowestScore < score)    {
+                newHighscore();
+
+                database.endlessHighscoreDao().removeEndlessHighscoreEntry(entryWithLowestScore);
+                updateDatabase();
+            }
+
+        }else   {
+            newHighscore();
+        }
     }
 
     private void updateDatabase()   {

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
@@ -50,14 +51,17 @@ public class HighscoreActivity extends AppCompatActivity {
         //mAdapter = new ScoreAdapter(bestenliste);
         //recyclerView.setAdapter(mAdapter);
 
+
+
         if (getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
             category = getIntent().getStringExtra("category");
             difficulty = getIntent().getStringExtra("difficulty");
         }
-       //if (score>=DatabaseHighsore)
-        newHighscore();
+       //if (score>=bestenliste.get())
         List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
+        addNewHighscore();
+
         mAdapter = new ScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);
     }
@@ -110,4 +114,36 @@ public class HighscoreActivity extends AppCompatActivity {
         mAdapter = new ScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);
     }
+
+    private void addNewHighscore() {
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
+
+        int lowestScore = 10;
+        Bestenliste entryWithLowestScore = null;
+        if (bestenliste.size() >= 10) {
+            Iterator<Bestenliste> iterator = bestenliste.iterator();
+
+            while (iterator.hasNext()) {
+                Bestenliste entry = iterator.next();
+                int scoreBestenliste = entry.getScore();
+                //search lowest score
+                if(scoreBestenliste < lowestScore)  {
+                    lowestScore = scoreBestenliste;
+                    entryWithLowestScore = entry;
+                }
+
+            }
+
+            if(lowestScore < score)    {
+                newHighscore();
+
+                database.bestenlisteDao().removeBestenlisteEintrag(entryWithLowestScore);
+                updateDatabase();
+            }
+
+        }else   {
+            newHighscore();
+        }
+    }
+
 }
