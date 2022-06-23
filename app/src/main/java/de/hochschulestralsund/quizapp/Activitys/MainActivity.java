@@ -34,4 +34,9 @@ public class MainActivity extends AppCompatActivity {
     public void clickSettings(View view) {
         //add Intent to Settings
     }
+
+    public void endless(View view){
+        Intent highscore = new Intent(MainActivity.this, StartEndlessActivity.class);
+        startActivity(highscore);
+    }
 }

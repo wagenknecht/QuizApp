@@ -18,6 +18,16 @@
         android:onClick="clickStartQuiz"/>
 
     <Button
+        android:id="@+id/buttonEndless"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="26dp"
+        android:textSize="26sp"
+        android:text="Start Endless"
+        android:onClick="endless"/>
+
+    <Button
         android:id="@+id/highscoreBtn"
         android:layout_width="match_parent"
         android:layout_height="70dp"
@@ -36,4 +46,5 @@
         android:text="Settings"
         android:textSize="26sp"
         android:onClick="clickSettings"/>
+
 </LinearLayout>
