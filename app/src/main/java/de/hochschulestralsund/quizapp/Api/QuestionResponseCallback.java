@@ -5,6 +5,6 @@ import java.util.List;
 import de.hochschulestralsund.quizapp.Entities.Question;
 
 public interface QuestionResponseCallback {
-    public void onQuestionResponse(List<Question> questionList);
+   void onQuestionResponse(List<Question> questionList);
 
 }

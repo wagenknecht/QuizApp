@@ -7,11 +7,11 @@ public enum Difficulty {
 
     private String value;
 
-    Difficulty(String value){
-        this.value=value;
+    Difficulty(String value) {
+        this.value = value;
     }
 
-    public String getValue(){
+    public String getValue() {
         return this.value;
     }
 }

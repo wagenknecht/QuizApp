@@ -1,6 +1,5 @@
 package de.hochschulestralsund.quizapp.Adapter;
 
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import de.hochschulestralsund.quizapp.Activitys.HighscoreActivity;
 import de.hochschulestralsund.quizapp.R;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> {
     List<String> values; //todo zum gewünschten DTO ändern
 
 
-    public ScoreAdapter(List<String> input){
+    public ScoreAdapter(List<String> input) {
         values = input;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView score;
         public TextView name;
@@ -30,7 +28,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View v) {
             super(v);
-            score= v.findViewById(R.id.firstLine);
+            score = v.findViewById(R.id.firstLine);
             name = v.findViewById(R.id.secondLine);
             difficulty = v.findViewById(R.id.difficulty);
         }

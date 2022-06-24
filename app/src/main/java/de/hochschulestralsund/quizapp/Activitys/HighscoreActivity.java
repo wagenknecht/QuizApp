@@ -36,33 +36,33 @@ public class HighscoreActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         List<String> input = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
-            input.add(String.valueOf(100-i));
+            input.add(String.valueOf(100 - i));
         }// define an adapter
         mAdapter = new ScoreAdapter(input);
         recyclerView.setAdapter(mAdapter);
 
-        if(getIntent().getExtras() != null) {
+        if (getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
         }
 //        if (score>=DatabaseHighsore)
-            newHighscore();
+        newHighscore();
     }
 
-    public void zurueck(View view){
+    public void zurueck(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void retry(View view){
+    public void retry(View view) {
         Intent intent = new Intent(this, StartQuizActivity.class);
         startActivity(intent);
     }
 
-    public void newHighscore(){
+    public void newHighscore() {
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 HighscoreActivity.this
         );
-        builder.setTitle("\uD83C\uDF89 new high score: "+score+" points \uD83C\uDF89");
+        builder.setTitle("\uD83C\uDF89 new high score: " + score + " points \uD83C\uDF89");
         builder.setCancelable(false);
         builder.setMessage("Please enter a name under which the high score should be saved");
         final EditText input = new EditText(this);

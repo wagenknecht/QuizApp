@@ -47,6 +47,7 @@
         android:layout_height="51dp"
         android:onClick="answere"
         android:text="Button"
+        style="?attr/materialButtonOutlinedStyle"
         app:layout_constraintBottom_toTopOf="@+id/antwort3"
         app:layout_constraintEnd_toStartOf="@+id/antwort2"
         app:layout_constraintHorizontal_bias="0.5"
@@ -59,6 +60,7 @@
         android:layout_height="51dp"
         android:onClick="answere"
         android:text="Button"
+        style="?attr/materialButtonOutlinedStyle"
         app:layout_constraintBottom_toTopOf="@+id/antwort4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -71,7 +73,8 @@
         android:layout_height="51dp"
         android:onClick="answere"
         android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        style="?attr/materialButtonOutlinedStyle"
+        app:layout_constraintBottom_toTopOf="@+id/btnContinue"
         app:layout_constraintEnd_toStartOf="@+id/antwort4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,10 +86,24 @@
         android:layout_height="51dp"
         android:onClick="answere"
         android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnContinue"
+        style="?attr/materialButtonOutlinedStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/antwort3"
         app:layout_constraintTop_toBottomOf="@+id/antwort2" />
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:onClick="clickContinue"
+        android:text="Continue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

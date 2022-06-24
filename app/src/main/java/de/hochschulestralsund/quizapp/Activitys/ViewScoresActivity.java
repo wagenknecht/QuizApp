@@ -19,7 +19,7 @@ import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
 import de.hochschulestralsund.quizapp.Entities.Category;
 import de.hochschulestralsund.quizapp.R;
 
-public class ViewScoresActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class ViewScoresActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -42,15 +42,15 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         mAdapter = new ScoreAdapter(easy);
         recyclerView.setAdapter(mAdapter);
         Spinner selectCategorySpinner = findViewById(R.id.spinnerCategory);
-        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
+        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Category.values()));
     }
 
-    public void zurueck(View view){
+    public void zurueck(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void easy(View view){
+    public void easy(View view) {
         List<String> easy = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             easy.add("easy" + i);
@@ -59,7 +59,7 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         recyclerView.setAdapter(mAdapter);
     }
 
-    public void medium(View view){
+    public void medium(View view) {
         List<String> medium = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             medium.add("medium" + i);
@@ -68,7 +68,7 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         recyclerView.setAdapter(mAdapter);
     }
 
-    public void hard(View view){
+    public void hard(View view) {
         List<String> hard = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             hard.add("hard" + i);
