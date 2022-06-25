@@ -12,13 +12,12 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import de.hochschulestralsund.quizapp.Api.OpenTrivialServiceEndless;
+import de.hochschulestralsund.quizapp.Api.OpenTrivialService;
 import de.hochschulestralsund.quizapp.Api.QuestionResponseCallback;
 import de.hochschulestralsund.quizapp.Entities.Category;
 import de.hochschulestralsund.quizapp.Entities.Question;
@@ -136,7 +135,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
     }
 
     public void loadMoreQuestions() {
-        OpenTrivialServiceEndless openTrivialService = new OpenTrivialServiceEndless();
+        OpenTrivialService openTrivialService = new OpenTrivialService();
         Category category = (Category) getIntent().getSerializableExtra("category");
         openTrivialService.getQuestions(questionsPerApiCall, category, new QuestionResponseCallback() {
 
