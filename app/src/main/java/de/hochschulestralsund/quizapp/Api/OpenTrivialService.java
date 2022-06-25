@@ -36,7 +36,7 @@ public class OpenTrivialService {
     }
 
     public void getQuestions(int amount, Category category, QuestionResponseCallback callback) {
-        getQuestions(amount, null ,category, callback);
+        getQuestions(amount, null, category, callback);
     }
 
     public void getQuestions(int amount, Difficulty difficulty, Category category, QuestionResponseCallback callback) {
@@ -54,5 +54,4 @@ public class OpenTrivialService {
             }
         });
     }
-
 }

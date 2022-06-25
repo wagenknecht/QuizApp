@@ -10,7 +10,7 @@ import de.hochschulestralsund.quizapp.Entities.Difficulty;
 public class OpenTrivialRestClient {
     private static final String BASE_URL = "https://opentdb.com/api.php";
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static final AsyncHttpClient client = new AsyncHttpClient();
 
     public static void get(int amount, RequestParams params, AsyncHttpResponseHandler responseHandler) {
         // TODO: Params does not seem to be needed. Investigate later.
@@ -28,7 +28,7 @@ public class OpenTrivialRestClient {
 
     private static String getAbsoluteUrl(int amount, Difficulty difficulty, Category category) {
         String url = getAbsoluteUrl(amount) + "&category=" + category.getId();
-        if(difficulty==null)return url;
+        if (difficulty == null) return url;
         return url + "&difficulty=" + difficulty.getValue();
     }
 
