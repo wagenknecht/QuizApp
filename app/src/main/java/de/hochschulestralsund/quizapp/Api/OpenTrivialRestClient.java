@@ -27,7 +27,7 @@ public class OpenTrivialRestClient {
     }
 
     private static String getAbsoluteUrl(int amount, Difficulty difficulty, Category category) {
-        String url = getAbsoluteUrl(amount) + "&category=" + category.getValue();
+        String url = getAbsoluteUrl(amount) + "&category=" + category.getId();
         if(difficulty==null)return url;
         return url + "&difficulty=" + difficulty.getValue();
     }
