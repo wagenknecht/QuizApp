@@ -19,9 +19,12 @@ import de.hochschulestralsund.quizapp.R;
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> {
     List<Bestenliste> values; //todo zum gewünschten DTO ändern
 
+
+
     public ScoreAdapter(List<Bestenliste> input){
         values = input;
     }
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -32,7 +35,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View v) {
             super(v);
-            score= v.findViewById(R.id.firstLine);
+            score = v.findViewById(R.id.firstLine);
             name = v.findViewById(R.id.secondLine);
             difficulty = v.findViewById(R.id.difficulty);
         }

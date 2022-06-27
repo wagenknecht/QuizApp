@@ -50,29 +50,30 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         mAdapter = new EndlessScoreAdapter(endlessHighscore);
         recyclerView.setAdapter(mAdapter);
 
-        if(getIntent().getExtras() != null) {
+        if (getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
-            category = getIntent().getStringExtra("category");
+            category = (String) getIntent().getSerializableExtra("category");
+            //        if (score>=DatabaseHighsore)
+            addNewHighscore();
         }
-//        if (score>=DatabaseHighsore)
-        addNewHighscore();
+
     }
 
-    public void zurueck(View view){
+    public void zurueck(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void retry(View view){
+    public void retry(View view) {
         Intent intent = new Intent(this, StartEndlessActivity.class);
         startActivity(intent);
     }
 
-    public void newHighscore(){
+    public void newHighscore() {
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 EndlessHighsoreActivity.this
         );
-        builder.setTitle("\uD83C\uDF89 new high score: "+score+" points \uD83C\uDF89");
+        builder.setTitle("\uD83C\uDF89 new high score: " + score + " points in " + category +  "\uD83C\uDF89");
         builder.setCancelable(false);
         builder.setMessage("Please enter a name under which the high score should be saved");
         final EditText input = new EditText(this);

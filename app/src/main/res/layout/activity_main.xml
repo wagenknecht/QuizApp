@@ -38,6 +38,16 @@
         android:onClick="clickHighscore"/>
 
     <Button
+        android:id="@+id/highscoreEndlessBtn"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginHorizontal="26dp"
+        android:layout_marginTop="8dp"
+        android:onClick="clickHighscoreEndless"
+        android:text="Highscore Endless"
+        android:textSize="26sp" />
+
+    <Button
         android:id="@+id/settingsBtn"
         android:layout_width="match_parent"
         android:layout_height="70dp"

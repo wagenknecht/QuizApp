@@ -29,7 +29,6 @@
         </activity>
         <activity android:name=".Activitys.StartEndlessActivity"/>
         <activity android:name=".Activitys.EndlessQuizActivity"/>
-        <activity android:name=".Activitys.HighscoreActivity" />
         <activity android:name=".Activitys.QuizActivity" />
         <activity android:name=".Activitys.ViewScoresActivity" />
         <activity android:name=".Activitys.EndlessHighsoreActivity"/>
