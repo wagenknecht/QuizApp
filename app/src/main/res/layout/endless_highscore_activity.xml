@@ -18,7 +18,7 @@
     <Spinner
         android:id="@+id/spinnerCategory"
         android:background="@drawable/spinner_background"
-        android:layout_width="211dp"
+        android:layout_width="300dp"
         android:layout_height="50sp"
         android:textSize="5sp"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"

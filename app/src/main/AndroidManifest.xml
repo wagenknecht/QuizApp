@@ -14,24 +14,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuizApp"
-        tools:targetApi="31">
-        <activity
-            android:name=".Activitys.StartQuizActivity"
-            android:exported="false" />
+        tools:targetApi="31"
+        >
+
         <activity
             android:name=".Activitys.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activitys.StartEndlessActivity"/>
-        <activity android:name=".Activitys.EndlessQuizActivity"/>
-        <activity android:name=".Activitys.QuizActivity" />
-        <activity android:name=".Activitys.ViewScoresActivity" />
-        <activity android:name=".Activitys.EndlessHighsoreActivity"/>
+        <activity
+            android:name=".Activitys.StartQuizActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activitys.StartEndlessActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activitys.EndlessQuizActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activitys.QuizActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activitys.ViewScoresActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activitys.EndlessHighsoreActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

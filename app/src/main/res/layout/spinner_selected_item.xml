@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:textSize="20sp"
     android:padding="10sp"
-    android:textColor="@color/white"
+    android:textColor="?attr/colorOnPrimary"
     android:autoSizeMinTextSize="12sp"
     android:autoSizeMaxTextSize="24sp"
     android:autoSizeStepGranularity="2sp"
