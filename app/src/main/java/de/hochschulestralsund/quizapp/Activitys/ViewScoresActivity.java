@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -17,9 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import de.hochschulestralsund.quizapp.Adapter.EndlessScoreAdapter;
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
+import de.hochschulestralsund.quizapp.Database.AppDatabase;
+import de.hochschulestralsund.quizapp.Database.Bestenliste;
+import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.Entities.Category;
 import de.hochschulestralsund.quizapp.R;
 
@@ -28,64 +34,77 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private AppDatabase database;
+    private Spinner selectCategorySpinner;
     private int score;
     private String category;
+    private String difficulty;
+    //default easy
+    private String selectedDifficulty = "easy";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_highscore_activity);
-
+        selectCategorySpinner = findViewById(R.id.spinnerCategory);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        //test data
-        List<String> easy = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            easy.add("easy" + i);
-        }
-        mAdapter = new ScoreAdapter(easy);
-        recyclerView.setAdapter(mAdapter);
-        Spinner selectCategorySpinner = findViewById(R.id.spinnerCategory);
-        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Category.values()));
+        database = AppDatabase.getDatabase(getApplicationContext());
+        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
+        selectCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(selectCategorySpinner.getSelectedItem().toString(), selectedDifficulty);
+                mAdapter = new ScoreAdapter(bestenliste);
+                recyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         if (getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
             category = (String) getIntent().getSerializableExtra("category");
+            difficulty = (String) getIntent().getSerializableExtra("difficulty");
             //        if (score>=DatabaseHighsore)
-            newHighscore();
+            checkScore();
         }
+
+        List<Bestenliste> bestenliste1 = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(selectCategorySpinner.getSelectedItem().toString(), "easy");
+
+        mAdapter = new ScoreAdapter(bestenliste1);
+        recyclerView.setAdapter(mAdapter);
     }
 
-    public void zurueck(View view) {
+    public void zurueck(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void easy(View view) {
-        List<String> easy = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            easy.add("easy" + i);
-        }// define an adapter
-        mAdapter = new ScoreAdapter(easy);
-        recyclerView.setAdapter(mAdapter);
+    public void easy(View view){
+        selectedDifficulty = "easy";
+        updateDatabaseClick(selectedDifficulty);
     }
 
-    public void medium(View view) {
-        List<String> medium = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            medium.add("medium" + i);
-        }
-        mAdapter = new ScoreAdapter(medium);
-        recyclerView.setAdapter(mAdapter);
+    public void medium(View view){
+        selectedDifficulty = "medium";
+        updateDatabaseClick(selectedDifficulty);
     }
 
-    public void hard(View view) {
-        List<String> hard = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            hard.add("hard" + i);
-        }
-        mAdapter = new ScoreAdapter(hard);
+    public void hard(View view){
+        selectedDifficulty = "hard";
+        updateDatabaseClick(selectedDifficulty);
+    }
+
+    private void updateDatabaseClick(String difficulty)  {
+        String spinnerItem = selectCategorySpinner.getSelectedItem().toString();
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(spinnerItem, difficulty);
+        mAdapter = new ScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -93,7 +112,7 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 ViewScoresActivity.this
         );
-        builder.setTitle("\uD83C\uDF89 new high score: " + score + " points in " + category + "\uD83C\uDF89");
+        builder.setTitle("\uD83C\uDF89 new high score: "+score+" points \uD83C\uDF89");
         builder.setCancelable(false);
         builder.setMessage("Please enter a name under which the high score should be saved");
         final EditText input = new EditText(this);
@@ -105,6 +124,11 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
                 StringBuilder stringBuilder = new StringBuilder();
                 System.out.println(input.getText().toString());
                 //todo add to DB, reload page after insert to display new item
+
+                Bestenliste newEntry = new Bestenliste(input.getText().toString(), category, difficulty, score);
+                database.bestenlisteDao().addSpieler(newEntry);
+                database.bestenlisteDao().updateBestenliste(newEntry);
+                updateDatabase();
             }
         });
 
@@ -115,6 +139,32 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
             }
         });
         builder.show();
+    }
+
+    private void updateDatabase()   {
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
+        mAdapter = new ScoreAdapter(bestenliste);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    private void checkScore() {
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
+
+        if (bestenliste.size() == 10) {
+
+            Bestenliste bestenliste1 = bestenliste.get(9);
+            if(bestenliste1.getScore() < score)   {
+                newHighscore();
+
+                database.bestenlisteDao().removeBestenlisteEintrag(bestenliste1);
+                updateDatabase();
+            } else  {
+                updateDatabase();
+            }
+
+        }else   {
+            newHighscore();
+        }
     }
 
     @Override
