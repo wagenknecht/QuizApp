@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -52,8 +51,11 @@ public class QuizActivity extends AppCompatActivity {
     //gets Triggert when a Button is clicked
     public void answere(View view) {
         btnContinue.setVisibility(View.VISIBLE);
+        buttons.forEach(a -> {
+            a.setClickable(false);
+            a.setBackgroundColor(Color.GRAY);
+                });
         correctAnswere.setBackgroundColor(Color.GREEN);
-        buttons.forEach(a -> a.setClickable(false));
         //if question is correct
         if (view.getId() == correctAnswere.getId()) {
             score = score + 1;
@@ -67,9 +69,8 @@ public class QuizActivity extends AppCompatActivity {
         TextView Question = findViewById(R.id.Frage);
         questionTitel.setText(question.get(number).getCategory());
         Question.setText(question.get(number).getQuestion());
-        TextView Number = findViewById(R.id.QuestionNumber);
-        int display = number + 1;
-        Number.setText("Question Number: " + display);
+        TextView Number = findViewById(R.id.ScoreNumber);
+        Number.setText("Question " + (number + 1) + "/10");
     }
 
     public Button setAnsweres() {
@@ -91,7 +92,6 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void clickContinue(View view) {
-
         //check if all questions are answered/finish
         if (number == 9) {
             Intent intent = new Intent(this, HighscoreActivity.class);
@@ -102,10 +102,9 @@ public class QuizActivity extends AppCompatActivity {
             number++;
             setAnsweres();
             setQuestion();
+            view.setVisibility(View.INVISIBLE);
+            buttons.forEach(a -> a.setBackgroundColor(fetchcolorOnPrimary()));
         }
-        view.setVisibility(View.INVISIBLE);
-        buttons.forEach(a -> a.setBackgroundColor(fetchcolorOnPrimary()));
-
     }
 
     //method to get primaryColor

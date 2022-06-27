@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +60,16 @@ public class EndlessQuizActivity extends AppCompatActivity {
             loadMoreQuestions();
         }
         btnContinue.setVisibility(View.VISIBLE);
+        buttons.forEach(a -> {
+            a.setClickable(false);
+            a.setBackgroundColor(Color.GRAY);
+        });
         correctAnswere.setBackgroundColor(Color.GREEN);
-        buttons.forEach(a -> a.setClickable(false));
         //if question is correct
         if (view.getId() == correctAnswere.getId()) {
             score++;
+            TextView tvScore = findViewById(R.id.ScoreNumber);
+            tvScore.setText("Score: " + score);
         } else {
             lives--;
             ImageView imageView;
@@ -92,9 +96,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
         TextView Question = findViewById(R.id.Frage);
         questionTitel.setText(question.get(number % questionsPerApiCall).getCategory());
         Question.setText(question.get(number % questionsPerApiCall).getQuestion());
-        TextView Number = findViewById(R.id.QuestionNumber);
-        int display = number + 1;
-        Number.setText("Question Number: " + display);
+
     }
 
     public Button setAnsweres() {
