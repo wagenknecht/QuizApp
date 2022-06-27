@@ -42,20 +42,17 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         database = AppDatabase.getDatabase(getApplicationContext());
-        List<EndlessHighscore> endlessHighscore = database.endlessHighscoreDao().getEndlessHighscoreCategoryEntry(category);
-        /*List<String> input = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            input.add(String.valueOf(100-i));
-        }// define an adapter*/
-        mAdapter = new EndlessScoreAdapter(endlessHighscore);
-        recyclerView.setAdapter(mAdapter);
 
         if (getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
             category = (String) getIntent().getSerializableExtra("category");
             //        if (score>=DatabaseHighsore)
-            addNewHighscore();
+            checkScore();
         }
+
+        List<EndlessHighscore> endlessHighscore = database.endlessHighscoreDao().getAllEndlessHighscoreEntries();
+        mAdapter = new EndlessScoreAdapter(endlessHighscore);
+        recyclerView.setAdapter(mAdapter);
 
     }
 
@@ -101,28 +98,18 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void addNewHighscore() {
+    private void checkScore() {
         List<EndlessHighscore> bestenliste = database.endlessHighscoreDao().getEndlessHighscoreCategoryEntry(category);
-        int lowestScore = 10;
-        EndlessHighscore entryWithLowestScore = null;
-        if (bestenliste.size() >= 10) {
-            Iterator<EndlessHighscore> iterator = bestenliste.iterator();
 
-            while (iterator.hasNext()) {
-                EndlessHighscore entry = iterator.next();
-                int scoreBestenliste = entry.getScore();
-                //search lowest score
-                if(scoreBestenliste < lowestScore)  {
-                    lowestScore = scoreBestenliste;
-                    entryWithLowestScore = entry;
-                }
+        if (bestenliste.size() == 10) {
 
-            }
-
-            if(lowestScore < score)    {
+            EndlessHighscore bestenliste1 = bestenliste.get(9);
+            if(bestenliste1.getScore() < score)   {
                 newHighscore();
 
-                database.endlessHighscoreDao().removeEndlessHighscoreEntry(entryWithLowestScore);
+                database.endlessHighscoreDao().removeEndlessHighscoreEntry(bestenliste1);
+                updateDatabase();
+            } else  {
                 updateDatabase();
             }
 

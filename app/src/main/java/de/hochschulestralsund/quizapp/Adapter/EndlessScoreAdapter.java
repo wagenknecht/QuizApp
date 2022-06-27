@@ -1,6 +1,5 @@
 package de.hochschulestralsund.quizapp.Adapter;
 
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import de.hochschulestralsund.quizapp.Activitys.HighscoreActivity;
-import de.hochschulestralsund.quizapp.Database.Bestenliste;
 import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.R;
 
@@ -53,7 +50,7 @@ public class EndlessScoreAdapter extends RecyclerView.Adapter<EndlessScoreAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.score, parent, false);
+        View v = inflater.inflate(R.layout.endless_score, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
 
         return viewHolder;
@@ -64,7 +61,6 @@ public class EndlessScoreAdapter extends RecyclerView.Adapter<EndlessScoreAdapte
         String score = String.valueOf(values.get(position).getScore());
         holder.score.setText(score);
         holder.name.setText(values.get(position).getName());
-        holder.difficulty.setText("/");
     }
 
     @Override

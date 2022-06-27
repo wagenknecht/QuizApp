@@ -1,6 +1,5 @@
 package de.hochschulestralsund.quizapp.Adapter;
 
-import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import de.hochschulestralsund.quizapp.Activitys.HighscoreActivity;
 import de.hochschulestralsund.quizapp.Database.Bestenliste;
-import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.R;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> {

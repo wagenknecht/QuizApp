@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
@@ -35,6 +36,7 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
     private Spinner selectCategorySpinner;
     private int score;
     private String category;
+    private String difficulty;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,16 +49,20 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         recyclerView.setLayoutManager(layoutManager);
         database = AppDatabase.getDatabase(getApplicationContext());
         selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
-        List<Bestenliste> bestenliste1 = database.bestenlisteDao().getAllBestenlisteEintraege();
-        mAdapter = new ScoreAdapter(bestenliste1);
-        recyclerView.setAdapter(mAdapter);
+
 
         if (getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
             category = (String) getIntent().getSerializableExtra("category");
+            difficulty = (String) getIntent().getSerializableExtra("difficulty");
             //        if (score>=DatabaseHighsore)
-            newHighscore();
+            checkScore();
         }
+        String selectItem = selectCategorySpinner.getSelectedItem().toString();
+        List<Bestenliste> bestenliste1 = database.bestenlisteDao().getAllBestenlisteEintraege();
+        List<Bestenliste> bestenliste2 = database.bestenlisteDao().getAllBestenlisteEintraege();
+        mAdapter = new ScoreAdapter(bestenliste2);
+        recyclerView.setAdapter(mAdapter);
     }
 
     public void zurueck(View view){
@@ -66,20 +72,20 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
 
     public void easy(View view){
         String easy = "EASY";
-        updateDatabase(easy);
+        updateDatabaseClick(easy);
     }
 
     public void medium(View view){
-        String easy = "MEDIUM";
-        updateDatabase(easy);
+        String medium = "MEDIUM";
+        updateDatabaseClick(medium);
     }
 
     public void hard(View view){
-        String easy = "HARD";
-        updateDatabase(easy);
+        String hard = "HARD";
+        updateDatabaseClick(hard);
     }
 
-    private void updateDatabase(String difficulty)  {
+    private void updateDatabaseClick(String difficulty)  {
         List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(selectCategorySpinner.getSelectedItem().toString(), difficulty);
         mAdapter = new ScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);
@@ -89,7 +95,7 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 ViewScoresActivity.this
         );
-        builder.setTitle("\uD83C\uDF89 new high score: " + score + " points in " + category + "\uD83C\uDF89");
+        builder.setTitle("\uD83C\uDF89 new high score: "+score+" points \uD83C\uDF89");
         builder.setCancelable(false);
         builder.setMessage("Please enter a name under which the high score should be saved");
         final EditText input = new EditText(this);
@@ -101,6 +107,11 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
                 StringBuilder stringBuilder = new StringBuilder();
                 System.out.println(input.getText().toString());
                 //todo add to DB, reload page after insert to display new item
+
+                Bestenliste newEntry = new Bestenliste(input.getText().toString(), category, difficulty, score);
+                database.bestenlisteDao().addSpieler(newEntry);
+                database.bestenlisteDao().updateBestenliste(newEntry);
+                updateDatabase();
             }
         });
 
@@ -111,6 +122,32 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
             }
         });
         builder.show();
+    }
+
+    private void updateDatabase()   {
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
+        mAdapter = new ScoreAdapter(bestenliste);
+        recyclerView.setAdapter(mAdapter);
+    }
+
+    private void checkScore() {
+        List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
+
+        if (bestenliste.size() == 10) {
+
+            Bestenliste bestenliste1 = bestenliste.get(9);
+            if(bestenliste1.getScore() < score)   {
+                newHighscore();
+
+                database.bestenlisteDao().removeBestenlisteEintrag(bestenliste1);
+                updateDatabase();
+            } else  {
+                updateDatabase();
+            }
+
+        }else   {
+            newHighscore();
+        }
     }
 
     @Override

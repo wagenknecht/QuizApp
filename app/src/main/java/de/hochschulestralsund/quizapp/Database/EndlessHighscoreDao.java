@@ -25,7 +25,7 @@ public interface EndlessHighscoreDao {
     @Query("select * from endlessHighscore where id = :endlessHighscoreId")
     Bestenliste getEndlessHighscoreEntry(long endlessHighscoreId);
 
-    @Query("select * from endlessHighscore where kategorie = :kategorie")
+    @Query("select * from endlessHighscore where kategorie = :kategorie order by score desc")
     List<EndlessHighscore> getEndlessHighscoreCategoryEntry(String kategorie);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
