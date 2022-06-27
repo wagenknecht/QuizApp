@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import de.hochschulestralsund.quizapp.Database.AppDatabase;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -11,10 +12,14 @@ import de.hochschulestralsund.quizapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
+    private AppDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        database = AppDatabase.getDatabase(getApplicationContext());
 
     }
 
@@ -25,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickHighscore(View view) {
         Intent highscore = new Intent(MainActivity.this, ViewScoresActivity.class);
+        startActivity(highscore);
+    }
+
+    public void clickHighscoreEndless(View view) {
+        Intent highscore = new Intent(MainActivity.this, EndlessHighsoreActivity.class);
         startActivity(highscore);
     }
 

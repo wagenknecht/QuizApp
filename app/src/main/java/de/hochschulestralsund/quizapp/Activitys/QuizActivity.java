@@ -27,6 +27,8 @@ public class QuizActivity extends AppCompatActivity {
     private int number;
     List<Button> buttons = new ArrayList<>();
     private Button btnContinue;
+    private String category;
+    private String difficulty;
 
 
     @Override
@@ -41,6 +43,8 @@ public class QuizActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             question = (List<Question>) getIntent().getSerializableExtra("question");
         }
+        category = question.get(0).getCategory();
+        difficulty = question.get(0).getDifficulty();
         btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setVisibility(View.INVISIBLE);
         setAnsweres();
@@ -94,8 +98,10 @@ public class QuizActivity extends AppCompatActivity {
     public void clickContinue(View view) {
         //check if all questions are answered/finish
         if (number == 9) {
-            Intent intent = new Intent(this, HighscoreActivity.class);
+            Intent intent = new Intent(this, ViewScoresActivity.class);
             intent.putExtra("score", score);
+            intent.putExtra("category", category);
+            intent.putExtra("difficulty", difficulty);
             startActivity(intent);
         } else {
             buttons.forEach(a -> a.setClickable(true));
