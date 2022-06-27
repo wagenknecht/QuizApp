@@ -4,5 +4,9 @@
     android:layout_height="match_parent"
     android:textSize="20sp"
     android:padding="10sp"
-    android:textColor="@color/white">
+    android:textColor="@color/white"
+    android:autoSizeMinTextSize="12sp"
+    android:autoSizeMaxTextSize="24sp"
+    android:autoSizeStepGranularity="2sp"
+    android:autoSizeTextType="uniform">
 </TextView>

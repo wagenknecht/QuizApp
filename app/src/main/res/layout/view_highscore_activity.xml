@@ -77,8 +77,9 @@
 
     <Spinner
         android:id="@+id/spinnerCategory"
+        android:background="@drawable/spinner_background"
         android:layout_width="211dp"
-        android:layout_height="33dp"
+        android:layout_height="50sp"
         app:layout_constraintBottom_toTopOf="@+id/button4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

@@ -59,7 +59,7 @@
         android:layout_marginTop="8dp"
         android:onClick="clickHighscoreEndless"
         android:text="Highscore Endless"
-        android:textSize="26sp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/settingsBtn"
