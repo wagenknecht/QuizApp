@@ -32,11 +32,15 @@ public class StartQuizActivity extends AppCompatActivity implements AdapterView.
         btnStart = findViewById(R.id.startQuiz);
         btnStart.setClickable(true);
 
-        Spinner selectCategorySpinner = findViewById(R.id.selectCategorySpinner);
-        selectCategorySpinner.setAdapter(new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Category.values()));
-
         Spinner selectDifficultySpinner = findViewById(R.id.selectDifficultySpinner);
-        selectDifficultySpinner.setAdapter(new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Difficulty.values()));
+        ArrayAdapter difficultyAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, Difficulty.values());
+        difficultyAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        selectDifficultySpinner.setAdapter(difficultyAdapter);
+
+        Spinner selectCategorySpinner = findViewById(R.id.selectCategorySpinner);
+        ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, Category.values());
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        selectCategorySpinner.setAdapter(categoryAdapter);
     }
 
     @Override
