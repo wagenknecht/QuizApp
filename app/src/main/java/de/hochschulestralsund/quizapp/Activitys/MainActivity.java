@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import de.hochschulestralsund.quizapp.Database.AppDatabase;
 import androidx.appcompat.app.AppCompatActivity;
 
+import de.hochschulestralsund.quizapp.Database.AppDatabase;
 import de.hochschulestralsund.quizapp.R;
 
 public class MainActivity extends AppCompatActivity {

@@ -58,7 +58,7 @@ public class QuizActivity extends AppCompatActivity {
         buttons.forEach(a -> {
             a.setClickable(false);
             a.setBackgroundColor(Color.GRAY);
-                });
+        });
         correctAnswere.setBackgroundColor(Color.GREEN);
         //if question is correct
         if (view.getId() == correctAnswere.getId()) {
@@ -116,7 +116,7 @@ public class QuizActivity extends AppCompatActivity {
     //method to get colorOnPrimary
     private int fetchcolorOnPrimary() {
         TypedValue typedValue = new TypedValue();
-        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { com.google.android.material.R.attr.colorOnPrimary });
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[]{com.google.android.material.R.attr.colorOnPrimary});
         int color = a.getColor(0, 0);
         a.recycle();
         return color;

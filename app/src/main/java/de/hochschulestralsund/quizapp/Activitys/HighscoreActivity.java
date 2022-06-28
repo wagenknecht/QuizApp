@@ -11,8 +11,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -43,7 +43,6 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
     private Button btnEasy;
     private Button btnMedium;
     private Button btnHard;
-    private Button btnStart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +77,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
             difficulty = (String) getIntent().getSerializableExtra("difficulty");
             //        if (score>=DatabaseHighsore)
             checkScore();
-            btnStart = findViewById(R.id.btnStart);
+            Button btnStart = findViewById(R.id.btnStart);
             btnStart.setText("Retry");
         }
 
@@ -94,12 +93,12 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         recyclerView.setAdapter(mAdapter);
     }
 
-    public void zurueck(View view){
+    public void zurueck(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
-    public void easy(View view){
+    public void easy(View view) {
         view.setBackgroundColor(fetchcolorOnPrimary());
         btnMedium.setBackgroundColor(Color.GRAY);
         btnHard.setBackgroundColor(Color.GRAY);
@@ -107,7 +106,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         updateDatabaseClick(selectedDifficulty);
     }
 
-    public void medium(View view){
+    public void medium(View view) {
         view.setBackgroundColor(fetchcolorOnPrimary());
         btnEasy.setBackgroundColor(Color.GRAY);
         btnHard.setBackgroundColor(Color.GRAY);
@@ -115,7 +114,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         updateDatabaseClick(selectedDifficulty);
     }
 
-    public void hard(View view){
+    public void hard(View view) {
         view.setBackgroundColor(fetchcolorOnPrimary());
         btnEasy.setBackgroundColor(Color.GRAY);
         btnMedium.setBackgroundColor(Color.GRAY);
@@ -123,7 +122,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         updateDatabaseClick(selectedDifficulty);
     }
 
-    private void updateDatabaseClick(String difficulty)  {
+    private void updateDatabaseClick(String difficulty) {
         String spinnerItem = selectCategorySpinner.getSelectedItem().toString();
         List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(spinnerItem, difficulty);
         mAdapter = new ScoreAdapter(bestenliste);
@@ -134,7 +133,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 HighscoreActivity.this
         );
-        builder.setTitle("\uD83C\uDF89 new high score: "+score+" points \uD83C\uDF89");
+        builder.setTitle("\uD83C\uDF89 New Highscore: " + score + " points. \uD83C\uDF89");
         builder.setCancelable(false);
         builder.setMessage("Please enter a name under which the high score should be saved");
         final EditText input = new EditText(this);
@@ -163,7 +162,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         builder.show();
     }
 
-    private void updateDatabase()   {
+    private void updateDatabase() {
         List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
         mAdapter = new ScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);
@@ -175,16 +174,16 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         if (bestenliste.size() == 10) {
 
             Bestenliste bestenliste1 = bestenliste.get(9);
-            if(bestenliste1.getScore() < score)   {
+            if (bestenliste1.getScore() < score) {
                 newHighscore();
 
                 database.bestenlisteDao().removeBestenlisteEintrag(bestenliste1);
                 updateDatabase();
-            } else  {
+            } else {
                 updateDatabase();
             }
 
-        }else   {
+        } else {
             newHighscore();
         }
     }
@@ -202,7 +201,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
     //method to get colorOnPrimary
     private int fetchcolorOnPrimary() {
         TypedValue typedValue = new TypedValue();
-        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { com.google.android.material.R.attr.colorPrimary });
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[]{com.google.android.material.R.attr.colorPrimary});
         int color = a.getColor(0, 0);
         a.recycle();
         return color;

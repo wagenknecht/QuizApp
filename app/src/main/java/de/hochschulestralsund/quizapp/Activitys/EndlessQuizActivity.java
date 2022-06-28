@@ -120,19 +120,19 @@ public class EndlessQuizActivity extends AppCompatActivity {
     }
 
     public void clickContinue(View view) {
-        if(lives == 0){
+        if (lives == 0) {
             Intent intent = new Intent(this, EndlessHighsoreActivity.class);
             intent.putExtra("score", score);
             intent.putExtra("category", category);
             startActivity(intent);
         } else {
-                buttons.forEach(a -> a.setClickable(true));
-                number++;
-                setAnsweres();
-                setQuestion();
-            }
-            view.setVisibility(View.INVISIBLE);
-            buttons.forEach(a -> a.setBackgroundColor(fetchcolorOnPrimary()));
+            buttons.forEach(a -> a.setClickable(true));
+            number++;
+            setAnsweres();
+            setQuestion();
+        }
+        view.setVisibility(View.INVISIBLE);
+        buttons.forEach(a -> a.setBackgroundColor(fetchcolorOnPrimary()));
 
 
     }
@@ -152,7 +152,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
     //method to get colorOnPrimary
     private int fetchcolorOnPrimary() {
         TypedValue typedValue = new TypedValue();
-        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { com.google.android.material.R.attr.colorOnPrimary });
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[]{com.google.android.material.R.attr.colorOnPrimary});
         int color = a.getColor(0, 0);
         a.recycle();
         return color;

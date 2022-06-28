@@ -9,8 +9,6 @@ import androidx.room.Update;
 
 import java.util.List;
 
-import de.hochschulestralsund.quizapp.Database.Bestenliste;
-
 @Dao
 public interface EndlessHighscoreDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
