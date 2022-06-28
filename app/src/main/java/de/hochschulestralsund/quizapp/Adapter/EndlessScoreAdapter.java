@@ -28,8 +28,8 @@ public class EndlessScoreAdapter extends RecyclerView.Adapter<EndlessScoreAdapte
 
         public ViewHolder(@NonNull View v) {
             super(v);
-            score= v.findViewById(R.id.firstLine);
-            name = v.findViewById(R.id.secondLine);
+            score= v.findViewById(R.id.tvPosition);
+            name = v.findViewById(R.id.tvUsername);
         }
     }
 
@@ -48,7 +48,7 @@ public class EndlessScoreAdapter extends RecyclerView.Adapter<EndlessScoreAdapte
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.endless_score, parent, false);
+        View v = inflater.inflate(R.layout.item_score, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
 
         return viewHolder;

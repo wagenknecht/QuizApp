@@ -3,8 +3,11 @@ package de.hochschulestralsund.quizapp.Activitys;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -41,6 +45,9 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
     private String difficulty;
     //default easy
     private String selectedDifficulty = "easy";
+    private Button btnEasy;
+    private Button btnMedium;
+    private Button btnHard;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,6 +84,12 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
             checkScore();
         }
 
+        btnEasy = findViewById(R.id.btnEasy);
+        btnMedium = findViewById(R.id.btnMedium);
+        btnHard = findViewById(R.id.btnHard);
+        btnMedium.setBackgroundColor(Color.GRAY);
+        btnHard.setBackgroundColor(Color.GRAY);
+
         List<Bestenliste> bestenliste1 = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(selectCategorySpinner.getSelectedItem().toString(), "easy");
 
         mAdapter = new ScoreAdapter(bestenliste1);
@@ -89,16 +102,25 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
     }
 
     public void easy(View view){
+        view.setBackgroundColor(fetchcolorOnPrimary());
+        btnMedium.setBackgroundColor(Color.GRAY);
+        btnHard.setBackgroundColor(Color.GRAY);
         selectedDifficulty = "easy";
         updateDatabaseClick(selectedDifficulty);
     }
 
     public void medium(View view){
+        view.setBackgroundColor(fetchcolorOnPrimary());
+        btnEasy.setBackgroundColor(Color.GRAY);
+        btnHard.setBackgroundColor(Color.GRAY);
         selectedDifficulty = "medium";
         updateDatabaseClick(selectedDifficulty);
     }
 
     public void hard(View view){
+        view.setBackgroundColor(fetchcolorOnPrimary());
+        btnEasy.setBackgroundColor(Color.GRAY);
+        btnMedium.setBackgroundColor(Color.GRAY);
         selectedDifficulty = "hard";
         updateDatabaseClick(selectedDifficulty);
     }
@@ -177,5 +199,14 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+    //method to get colorOnPrimary
+    private int fetchcolorOnPrimary() {
+        TypedValue typedValue = new TypedValue();
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { com.google.android.material.R.attr.colorPrimary });
+        int color = a.getColor(0, 0);
+        a.recycle();
+        return color;
     }
 }
