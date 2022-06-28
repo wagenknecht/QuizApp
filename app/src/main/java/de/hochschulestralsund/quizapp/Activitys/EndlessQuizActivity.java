@@ -149,17 +149,12 @@ public class EndlessQuizActivity extends AppCompatActivity {
         });
     }
 
+    //method to get colorOnPrimary
     private int fetchcolorOnPrimary() {
-
         TypedValue typedValue = new TypedValue();
-
         TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { com.google.android.material.R.attr.colorOnPrimary });
         int color = a.getColor(0, 0);
-
         a.recycle();
-
         return color;
     }
-
-
 }

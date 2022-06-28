@@ -25,13 +25,11 @@ public class EndlessScoreAdapter extends RecyclerView.Adapter<EndlessScoreAdapte
 
         public TextView score;
         public TextView name;
-        public TextView difficulty;
 
         public ViewHolder(@NonNull View v) {
             super(v);
             score= v.findViewById(R.id.firstLine);
             name = v.findViewById(R.id.secondLine);
-            difficulty = v.findViewById(R.id.difficulty);
         }
     }
 
