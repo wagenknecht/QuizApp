@@ -188,6 +188,11 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         }
     }
 
+    public void clickRetry(View view) {
+        Intent intent = new Intent(this, StartQuizActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 

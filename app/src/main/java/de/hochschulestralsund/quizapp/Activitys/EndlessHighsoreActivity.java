@@ -83,7 +83,7 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void retry(View view) {
+    public void clickRetry(View view) {
         Intent intent = new Intent(this, StartEndlessActivity.class);
         startActivity(intent);
     }

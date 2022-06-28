@@ -36,6 +36,7 @@
 
     <Button
         android:id="@+id/btnHard"
+        style="@style/blueButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -50,6 +51,7 @@
 
     <Button
         android:id="@+id/btnMedium"
+        style="@style/blueButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -64,6 +66,7 @@
 
     <Button
         android:id="@+id/btnEasy"
+        style="@style/blueButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -94,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="16dp"
-        android:onClick="retry"
+        android:onClick="clickRetry"
         android:text="start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/back"
