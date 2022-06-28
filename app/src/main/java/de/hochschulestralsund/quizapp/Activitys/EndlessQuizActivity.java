@@ -107,7 +107,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
         int correct = random.nextInt(4);
         correctAnswere = buttons.get(correct); //save CorrectAnswer to global string to compare result
         //todo remove string correct, just for testing
-        correctAnswere.setText("correct: " + question.get(number % questionsPerApiCall).getCorrect_answer());
+        correctAnswere.setText(question.get(number % questionsPerApiCall).getCorrect_answer());
         int j = 0;
         for (int i = 0; i < buttons.size(); i++) {
             if (i != correct) {
