@@ -20,20 +20,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
-import de.hochschulestralsund.quizapp.Adapter.EndlessScoreAdapter;
 import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
 import de.hochschulestralsund.quizapp.Database.AppDatabase;
 import de.hochschulestralsund.quizapp.Database.Bestenliste;
-import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.Entities.Category;
 import de.hochschulestralsund.quizapp.R;
 
-public class ViewScoresActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class HighscoreActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -48,13 +43,14 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
     private Button btnEasy;
     private Button btnMedium;
     private Button btnHard;
+    private Button btnStart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.view_highscore_activity);
         selectCategorySpinner = findViewById(R.id.spinnerCategory);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.rcScoreItems);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -82,6 +78,8 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
             difficulty = (String) getIntent().getSerializableExtra("difficulty");
             //        if (score>=DatabaseHighsore)
             checkScore();
+            btnStart = findViewById(R.id.btnStart);
+            btnStart.setText("Retry");
         }
 
         btnEasy = findViewById(R.id.btnEasy);
@@ -134,7 +132,7 @@ public class ViewScoresActivity extends AppCompatActivity implements AdapterView
 
     public void newHighscore() {
         AlertDialog.Builder builder = new AlertDialog.Builder(
-                ViewScoresActivity.this
+                HighscoreActivity.this
         );
         builder.setTitle("\uD83C\uDF89 new high score: "+score+" points \uD83C\uDF89");
         builder.setCancelable(false);

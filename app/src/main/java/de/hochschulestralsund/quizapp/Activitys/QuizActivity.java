@@ -98,7 +98,7 @@ public class QuizActivity extends AppCompatActivity {
     public void clickContinue(View view) {
         //check if all questions are answered/finish
         if (number == 9) {
-            Intent intent = new Intent(this, ViewScoresActivity.class);
+            Intent intent = new Intent(this, HighscoreActivity.class);
             intent.putExtra("score", score);
             intent.putExtra("category", category);
             intent.putExtra("difficulty", difficulty);
@@ -113,17 +113,12 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
-    //method to get primaryColor
+    //method to get colorOnPrimary
     private int fetchcolorOnPrimary() {
-
         TypedValue typedValue = new TypedValue();
-
         TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { com.google.android.material.R.attr.colorOnPrimary });
         int color = a.getColor(0, 0);
-
         a.recycle();
-
         return color;
     }
-
 }

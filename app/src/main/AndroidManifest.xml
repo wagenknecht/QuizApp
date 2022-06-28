@@ -41,7 +41,7 @@
             android:name=".Activitys.QuizActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Activitys.ViewScoresActivity"
+            android:name=".Activitys.HighscoreActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".Activitys.EndlessHighsoreActivity"

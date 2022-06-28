@@ -6,7 +6,6 @@ import android.view.View;
 
 import de.hochschulestralsund.quizapp.Database.AppDatabase;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import de.hochschulestralsund.quizapp.R;
 
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickHighscore(View view) {
-        Intent highscore = new Intent(MainActivity.this, ViewScoresActivity.class);
+        Intent highscore = new Intent(MainActivity.this, HighscoreActivity.class);
         startActivity(highscore);
     }
 

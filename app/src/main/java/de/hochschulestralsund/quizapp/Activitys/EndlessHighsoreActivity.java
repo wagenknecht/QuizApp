@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -16,16 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.EndlessScoreAdapter;
-import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
 import de.hochschulestralsund.quizapp.Database.AppDatabase;
-import de.hochschulestralsund.quizapp.Database.Bestenliste;
 import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.Entities.Category;
 import de.hochschulestralsund.quizapp.R;
@@ -39,12 +34,13 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
     int score;
     private AppDatabase database;
     private String category;
+    private Button btnStart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.endless_highscore_activity);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.rcScoreItems);
         selectCategorySpinner = findViewById(R.id.spinnerCategory);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -72,6 +68,8 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
             category = (String) getIntent().getSerializableExtra("category");
             //        if (score>=DatabaseHighsore)
             checkScore();
+            btnStart = findViewById(R.id.btnStart);
+            btnStart.setText("Retry");
         }
 
         List<EndlessHighscore> endlessHighscore = database.endlessHighscoreDao().getEndlessHighscoreCategoryEntry(selectCategorySpinner.getSelectedItem().toString());
