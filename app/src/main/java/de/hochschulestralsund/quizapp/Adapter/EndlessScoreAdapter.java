@@ -14,7 +14,7 @@ import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.R;
 
 public class EndlessScoreAdapter extends RecyclerView.Adapter<EndlessScoreAdapter.ViewHolder> {
-    List<EndlessHighscore> values;
+    List<EndlessHighscore> values; //todo zum gewünschten DTO ändern
 
     public EndlessScoreAdapter(List<EndlessHighscore> input){
         values = input;
