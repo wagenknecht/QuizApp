@@ -76,7 +76,6 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
                 }
             }
 
-            //        if (score>=DatabaseHighsore)
             checkScore();
             btnStart = findViewById(R.id.btnStart);
             btnStart.setText("Retry");

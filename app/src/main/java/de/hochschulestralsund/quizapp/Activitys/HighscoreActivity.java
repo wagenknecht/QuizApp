@@ -99,10 +99,6 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
                 }
             }
 
-
-
-
-            //        if (score>=DatabaseHighsore)
             checkScore();
             Button btnStart = findViewById(R.id.btnStart);
             btnStart.setText("Retry");

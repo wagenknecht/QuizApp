@@ -14,21 +14,21 @@ import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.R;
 
 public class EndlessScoreAdapter extends RecyclerView.Adapter<EndlessScoreAdapter.ViewHolder> {
-    List<EndlessHighscore> values; //todo zum gewünschten DTO ändern
+    List<EndlessHighscore> values;
 
-    public EndlessScoreAdapter(List<EndlessHighscore> input){
+    public EndlessScoreAdapter(List<EndlessHighscore> input) {
         values = input;
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView score;
         public TextView name;
 
         public ViewHolder(@NonNull View v) {
             super(v);
-            score= v.findViewById(R.id.tvPosition);
+            score = v.findViewById(R.id.tvPosition);
             name = v.findViewById(R.id.tvUsername);
         }
     }
