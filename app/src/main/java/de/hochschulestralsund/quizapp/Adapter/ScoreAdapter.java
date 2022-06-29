@@ -14,17 +14,13 @@ import de.hochschulestralsund.quizapp.Database.Bestenliste;
 import de.hochschulestralsund.quizapp.R;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> {
-    List<Bestenliste> values; //todo zum gewünschten DTO ändern
+    List<Bestenliste> values;
 
-
-
-    public ScoreAdapter(List<Bestenliste> input){
+    public ScoreAdapter(List<Bestenliste> input) {
         values = input;
     }
 
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView score;
         public TextView name;
@@ -59,7 +55,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ScoreAdapter.ViewHolder holder, int position) {
-        String score = String.valueOf(values.get(position).getScore() + "/10");
+        String score = values.get(position).getScore() + "/10";
         holder.score.setText(score);
         holder.name.setText(values.get(position).getName());
     }

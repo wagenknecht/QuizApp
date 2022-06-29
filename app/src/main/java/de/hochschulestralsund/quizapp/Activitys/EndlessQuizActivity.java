@@ -136,8 +136,6 @@ public class EndlessQuizActivity extends AppCompatActivity {
         }
         view.setVisibility(View.INVISIBLE);
         buttons.forEach(a -> a.setBackgroundColor(fetchcolorOnPrimary()));
-
-
     }
 
     //load more questions from the API

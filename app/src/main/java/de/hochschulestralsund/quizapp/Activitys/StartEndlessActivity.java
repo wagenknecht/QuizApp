@@ -16,7 +16,6 @@ import java.util.List;
 import de.hochschulestralsund.quizapp.Api.OpenTrivialService;
 import de.hochschulestralsund.quizapp.Api.QuestionResponseCallback;
 import de.hochschulestralsund.quizapp.Entities.Category;
-import de.hochschulestralsund.quizapp.Entities.Difficulty;
 import de.hochschulestralsund.quizapp.Entities.Question;
 import de.hochschulestralsund.quizapp.R;
 

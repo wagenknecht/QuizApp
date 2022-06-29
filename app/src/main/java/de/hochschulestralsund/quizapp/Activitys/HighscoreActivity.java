@@ -58,6 +58,8 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, categories);
         categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         selectCategorySpinner.setAdapter(categoryAdapter);
+
+        //when the category is changed, the spinner have to display the values for the selected category
         selectCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -97,10 +99,6 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
                 }
             }
 
-
-
-
-            //        if (score>=DatabaseHighsore)
             checkScore();
             Button btnStart = findViewById(R.id.btnStart);
             btnStart.setText("Retry");
@@ -117,7 +115,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
+    // gets triggered when button easy is trigged
     public void easy(View view) {
         view.setBackgroundColor(fetchcolorOnPrimary());
         btnMedium.setBackgroundColor(Color.GRAY);
@@ -125,7 +123,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         selectedDifficulty = "easy";
         updateDatabaseClick(selectedDifficulty);
     }
-
+    // gets triggered when button medium is trigged
     public void medium(View view) {
         view.setBackgroundColor(fetchcolorOnPrimary());
         btnEasy.setBackgroundColor(Color.GRAY);
@@ -133,7 +131,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         selectedDifficulty = "medium";
         updateDatabaseClick(selectedDifficulty);
     }
-
+    // gets triggered when button hard is trigged
     public void hard(View view) {
         view.setBackgroundColor(fetchcolorOnPrimary());
         btnEasy.setBackgroundColor(Color.GRAY);
@@ -142,6 +140,7 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         updateDatabaseClick(selectedDifficulty);
     }
 
+    //updating the adapter when a button (easy, medium, hard) is clicked
     private void updateDatabaseClick(String difficulty) {
         String spinnerItem = selectCategorySpinner.getSelectedItem().toString();
         List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(spinnerItem, difficulty);
@@ -164,11 +163,11 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
             public void onClick(DialogInterface dialogInterface, int i) {
                 StringBuilder stringBuilder = new StringBuilder();
                 System.out.println(input.getText().toString());
-                //todo add to DB, reload page after insert to display new item
-
+                //add new entry to database
                 Bestenliste newEntry = new Bestenliste(input.getText().toString(), category, difficulty, score);
                 database.bestenlisteDao().addSpieler(newEntry);
                 database.bestenlisteDao().updateBestenliste(newEntry);
+                //reload DB and update adapter
                 updateDatabase();
             }
         });
@@ -181,13 +180,15 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         });
         builder.show();
     }
-
+    //updating the adapter
     private void updateDatabase() {
         List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
         mAdapter = new ScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);
     }
 
+    // checks the score if it is greater than the smallest value in the list or
+    // there are less than 10 entries in the db, then the score can be saved
     private void checkScore() {
         List<Bestenliste> bestenliste = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(category, difficulty);
 

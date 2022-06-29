@@ -50,6 +50,8 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, categories);
         categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         selectCategorySpinner.setAdapter(categoryAdapter);
+
+        //when the category is changed, the spinner have to display the values for the selected category
         selectCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -74,7 +76,6 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
                 }
             }
 
-            //        if (score>=DatabaseHighsore)
             checkScore();
             btnStart = findViewById(R.id.btnStart);
             btnStart.setText("Retry");
@@ -111,11 +112,11 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 StringBuilder stringBuilder = new StringBuilder();
                 System.out.println(input.getText().toString());
-                //add new entry
+                //add new entry to database
                 EndlessHighscore newEntry = new EndlessHighscore(input.getText().toString(), category, score);
                 database.endlessHighscoreDao().addSpieler(newEntry);
                 database.endlessHighscoreDao().updateEndlessHighscore(newEntry);
-                //reload DB
+                //reload DB and update adapter
                 updateDatabase();
             }
         });
