@@ -43,10 +43,11 @@ public class EndlessQuizActivity extends AppCompatActivity {
         buttons.add(findViewById(R.id.antwort2));
         buttons.add(findViewById(R.id.antwort3));
         buttons.add(findViewById(R.id.antwort4));
-        //get Questions
+        //get Questions from intent
         if (getIntent().getExtras() != null) {
             question = (List<Question>) getIntent().getSerializableExtra("question");
         }
+        //get the Category
         category = question.get(0).getCategory();
         btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setVisibility(View.INVISIBLE);
@@ -57,16 +58,16 @@ public class EndlessQuizActivity extends AppCompatActivity {
 
     //gets Triggert when a Button is clicked
     public void answer(View view) {
-        //check if questions are all asked
+        //check if questions are all asked, fetch new if
         if (number % questionsPerApiCall == 0) {
             loadMoreQuestions();
         }
-        btnContinue.setVisibility(View.VISIBLE);
+        btnContinue.setVisibility(View.VISIBLE); //creates a Button when the question is answered
         buttons.forEach(a -> {
             a.setClickable(false);
             a.setBackgroundColor(Color.GRAY);
         });
-        correctAnswere.setBackgroundColor(Color.GREEN);
+        correctAnswere.setBackgroundColor(Color.GREEN); //paints the correct answer green
         //if question is correct
         if (view.getId() == correctAnswere.getId()) {
             score++;
@@ -75,7 +76,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
         } else {
             lives--;
             ImageView imageView;
-            switch (lives) {
+            switch (lives) { //removes the lives
                 case 2:
                     imageView = findViewById(R.id.lives3);
                     imageView.setVisibility(View.INVISIBLE);
@@ -93,6 +94,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
         }
     }
 
+    //set the question and the Titel, fetched from API in the onStart methode
     public void setQuestion() {
         TextView questionTitel = findViewById(R.id.frageTitelNummer);
         TextView Question = findViewById(R.id.Frage);
@@ -107,6 +109,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
         int correct = random.nextInt(4);
         correctAnswere = buttons.get(correct); //save CorrectAnswer to global string to compare result
         correctAnswere.setText(question.get(number % questionsPerApiCall).getCorrect_answer());
+        //assign the wrong answers to a button
         int j = 0;
         for (int i = 0; i < buttons.size(); i++) {
             if (i != correct) {
@@ -119,12 +122,13 @@ public class EndlessQuizActivity extends AppCompatActivity {
     }
 
     public void clickContinue(View view) {
+        //when the the user has used all trys change to Highscore
         if (lives == 0) {
             Intent intent = new Intent(this, EndlessHighsoreActivity.class);
-            intent.putExtra("score", score);
+            intent.putExtra("score", score); //add the score and the Category to the intent, needed for Highscore
             intent.putExtra("category", category);
             startActivity(intent);
-        } else {
+        } else { //assign the Answers and Questions new
             buttons.forEach(a -> a.setClickable(true));
             number++;
             setAnswers();
@@ -136,9 +140,10 @@ public class EndlessQuizActivity extends AppCompatActivity {
 
     }
 
+    //load more questions from the API
     public void loadMoreQuestions() {
         OpenTrivialService openTrivialService = new OpenTrivialService();
-        Category category = (Category) getIntent().getSerializableExtra("category");
+        Category category = (Category) getIntent().getSerializableExtra("category"); //get Category from intent
         openTrivialService.getQuestions(questionsPerApiCall, category, new QuestionResponseCallback() {
 
             @Override

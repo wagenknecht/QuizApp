@@ -68,6 +68,7 @@ public class QuizActivity extends AppCompatActivity {
         }
     }
 
+    //assign the the Questions to the TextViews
     public void setQuestion() {
         TextView questionTitel = findViewById(R.id.frageTitelNummer);
         TextView Question = findViewById(R.id.Frage);
@@ -77,6 +78,7 @@ public class QuizActivity extends AppCompatActivity {
         Number.setText("Question " + (number + 1) + "/10");
     }
 
+    //same as in EndessQuiz
     public Button setAnswers() {
         //select a Random button to be right
         Random random = new Random();
