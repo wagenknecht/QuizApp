@@ -20,6 +20,8 @@ public class Bestenliste {
         this.score = score;
     }
 
+    //getter and setter for all variables
+
     public String getName() {
         return name;
     }

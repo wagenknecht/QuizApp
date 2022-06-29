@@ -14,7 +14,7 @@ import de.hochschulestralsund.quizapp.Database.Bestenliste;
 import de.hochschulestralsund.quizapp.R;
 
 public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> {
-    List<Bestenliste> values; //todo zum gewünschten DTO ändern
+    List<Bestenliste> values;
 
 
 
