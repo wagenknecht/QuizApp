@@ -21,7 +21,7 @@ import de.hochschulestralsund.quizapp.R;
 
 public class QuizActivity extends AppCompatActivity {
 
-    private Button correctAnswere;
+    private Button correctAnswer;
     private int score;
     private List<Question> question;
     private int number;
@@ -47,21 +47,21 @@ public class QuizActivity extends AppCompatActivity {
         difficulty = question.get(0).getDifficulty();
         btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setVisibility(View.INVISIBLE);
-        setAnsweres();
+        setAnswers();
         setQuestion();
         number = 0;
     }
 
-    //gets Triggert when a Button is clicked
-    public void answere(View view) {
+    //gets triggered when a Button is clicked
+    public void answer(View view) {
         btnContinue.setVisibility(View.VISIBLE);
         buttons.forEach(a -> {
             a.setClickable(false);
             a.setBackgroundColor(Color.GRAY);
         });
-        correctAnswere.setBackgroundColor(Color.GREEN);
+        correctAnswer.setBackgroundColor(Color.GREEN);
         //if question is correct
-        if (view.getId() == correctAnswere.getId()) {
+        if (view.getId() == correctAnswer.getId()) {
             score = score + 1;
         } else {
             view.setBackgroundColor(Color.RED);
@@ -77,13 +77,12 @@ public class QuizActivity extends AppCompatActivity {
         Number.setText("Question " + (number + 1) + "/10");
     }
 
-    public Button setAnsweres() {
+    public Button setAnswers() {
         //select a Random button to be right
         Random random = new Random();
         int correct = random.nextInt(4);
-        correctAnswere = buttons.get(correct); //save CorrectAnswer to global string to compare result
-        //todo remove string correct, just for testing
-        correctAnswere.setText(question.get(number).getCorrect_answer());
+        correctAnswer = buttons.get(correct); //save CorrectAnswer to global string to compare result
+        correctAnswer.setText(question.get(number).getCorrect_answer());
         int j = 0;
         for (int i = 0; i < buttons.size(); i++) {
             if (i != correct) {
@@ -92,7 +91,7 @@ public class QuizActivity extends AppCompatActivity {
                 j++;
             }
         }
-        return correctAnswere;
+        return correctAnswer;
     }
 
     public void clickContinue(View view) {
@@ -106,7 +105,7 @@ public class QuizActivity extends AppCompatActivity {
         } else {
             buttons.forEach(a -> a.setClickable(true));
             number++;
-            setAnsweres();
+            setAnswers();
             setQuestion();
             view.setVisibility(View.INVISIBLE);
             buttons.forEach(a -> a.setBackgroundColor(fetchcolorOnPrimary()));

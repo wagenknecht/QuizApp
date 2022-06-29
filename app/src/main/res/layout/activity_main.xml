@@ -65,15 +65,4 @@
         android:text="Highscore Endless"
         android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/settingsBtn"
-        style="@style/blueButton"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="26dp"
-        android:text="Settings"
-        android:textSize="20sp"
-        android:onClick="clickSettings"/>
-
 </LinearLayout>

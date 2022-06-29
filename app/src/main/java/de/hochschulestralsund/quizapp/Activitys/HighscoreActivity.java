@@ -54,7 +54,8 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         database = AppDatabase.getDatabase(getApplicationContext());
-        ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, Category.values());
+        Category[] categories= Category.values();
+        ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, categories);
         categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         selectCategorySpinner.setAdapter(categoryAdapter);
         selectCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -71,21 +72,40 @@ public class HighscoreActivity extends AppCompatActivity implements AdapterView.
             }
         });
 
+        btnEasy = findViewById(R.id.btnEasy);
+        btnMedium = findViewById(R.id.btnMedium);
+        btnHard = findViewById(R.id.btnHard);
+        btnMedium.setBackgroundColor(Color.GRAY);
+        btnHard.setBackgroundColor(Color.GRAY);
+
+
         if (getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
             category = (String) getIntent().getSerializableExtra("category");
             difficulty = (String) getIntent().getSerializableExtra("difficulty");
+
+            switch(difficulty){
+                case "hard": hard(btnHard); break;
+                case "medium": medium(btnMedium); break;
+                case "easy": easy(btnEasy); break;
+            }
+
+            for(int i=0;i<categories.length;i++){
+                if(categories[i].toString().equals(category)){
+                    selectCategorySpinner.setSelection(i);
+                    break;
+                }
+            }
+
+
+
+
             //        if (score>=DatabaseHighsore)
             checkScore();
             Button btnStart = findViewById(R.id.btnStart);
             btnStart.setText("Retry");
         }
 
-        btnEasy = findViewById(R.id.btnEasy);
-        btnMedium = findViewById(R.id.btnMedium);
-        btnHard = findViewById(R.id.btnHard);
-        btnMedium.setBackgroundColor(Color.GRAY);
-        btnHard.setBackgroundColor(Color.GRAY);
 
         List<Bestenliste> bestenliste1 = database.bestenlisteDao().getBestenlisteCategoryDifficultyEntry(selectCategorySpinner.getSelectedItem().toString(), "easy");
 

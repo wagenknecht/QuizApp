@@ -50,13 +50,13 @@ public class EndlessQuizActivity extends AppCompatActivity {
         category = question.get(0).getCategory();
         btnContinue = findViewById(R.id.btnContinue);
         btnContinue.setVisibility(View.INVISIBLE);
-        setAnsweres();
+        setAnswers();
         setQuestion();
         number = 0;
     }
 
     //gets Triggert when a Button is clicked
-    public void answere(View view) {
+    public void answer(View view) {
         //check if questions are all asked
         if (number % questionsPerApiCall == 0) {
             loadMoreQuestions();
@@ -101,12 +101,11 @@ public class EndlessQuizActivity extends AppCompatActivity {
 
     }
 
-    public Button setAnsweres() {
+    public Button setAnswers() {
         //select a Random button to be right
         Random random = new Random();
         int correct = random.nextInt(4);
         correctAnswere = buttons.get(correct); //save CorrectAnswer to global string to compare result
-        //todo remove string correct, just for testing
         correctAnswere.setText(question.get(number % questionsPerApiCall).getCorrect_answer());
         int j = 0;
         for (int i = 0; i < buttons.size(); i++) {
@@ -128,7 +127,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
         } else {
             buttons.forEach(a -> a.setClickable(true));
             number++;
-            setAnsweres();
+            setAnswers();
             setQuestion();
         }
         view.setVisibility(View.INVISIBLE);
