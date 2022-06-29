@@ -1,5 +1,6 @@
 package de.hochschulestralsund.quizapp.Entities;
 
+// Enum for Categories
 public enum Category {
     GENERAL_KNOWLEDGE("General Knowledge", "9"),
     ENTERTAINMENT_BOOKS("Entertainment: Books", "10"),
@@ -29,6 +30,7 @@ public enum Category {
     private String name;
     private String id;
 
+    // Constructor for Category
     Category(String name, String id) {
         this.name = name;
         this.id = id;
@@ -42,6 +44,7 @@ public enum Category {
         return id;
     }
 
+    // Override toString() to correctly display name in Spinner
     @Override
     public String toString() {
         return name;

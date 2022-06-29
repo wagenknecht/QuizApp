@@ -32,11 +32,12 @@ public class StartQuizActivity extends AppCompatActivity implements AdapterView.
         btnStart = findViewById(R.id.startQuiz);
         btnStart.setClickable(true);
 
+        //fill the spinner with Difficulties
         Spinner selectDifficultySpinner = findViewById(R.id.selectDifficultySpinner);
         ArrayAdapter difficultyAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, Difficulty.values());
         difficultyAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         selectDifficultySpinner.setAdapter(difficultyAdapter);
-
+        //fill the spinner with the Category's
         Spinner selectCategorySpinner = findViewById(R.id.selectCategorySpinner);
         ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, Category.values());
         categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
@@ -65,11 +66,14 @@ public class StartQuizActivity extends AppCompatActivity implements AdapterView.
         OpenTrivialService openTrivialService = new OpenTrivialService();
         Spinner cat = findViewById(R.id.selectCategorySpinner);
         Spinner dif = findViewById(R.id.selectDifficultySpinner);
+        //add the Category to the intent
         intent.putExtra("category", (Serializable) cat.getSelectedItem());
+        //add the difficulty to the intent
         intent.putExtra("difficulty", (Serializable) dif.getSelectedItem());
         openTrivialService.getQuestions(10, (Difficulty) dif.getSelectedItem(), (Category) cat.getSelectedItem(), new QuestionResponseCallback() {
             @Override
             public void onQuestionResponse(List<Question> questionList) {
+                //add the Questionlist to the intent
                 questionList.forEach(question -> intent.putExtra("question", (Serializable) questionList));
                 startActivity(intent);
             }

@@ -3,6 +3,7 @@ package de.hochschulestralsund.quizapp.Entities;
 import java.io.Serializable;
 import java.util.List;
 
+// Serializable because has to be set in Intend
 public class Question implements Serializable {
 
     // Attributes
