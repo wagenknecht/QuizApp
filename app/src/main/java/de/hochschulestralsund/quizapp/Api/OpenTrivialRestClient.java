@@ -13,7 +13,6 @@ public class OpenTrivialRestClient {
     private static AsyncHttpClient client = new AsyncHttpClient();
 
     public static void get(int amount, RequestParams params, AsyncHttpResponseHandler responseHandler) {
-        // TODO: Params does not seem to be needed. Investigate later.
         client.get(getAbsoluteUrl(amount), params, responseHandler);
     }
 

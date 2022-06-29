@@ -46,7 +46,8 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         database = AppDatabase.getDatabase(getApplicationContext());
-        ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, Category.values());
+        Category[] categories = Category.values();
+        ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, categories);
         categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         selectCategorySpinner.setAdapter(categoryAdapter);
         selectCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -66,6 +67,13 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             score = (Integer) getIntent().getSerializableExtra("score");
             category = (String) getIntent().getSerializableExtra("category");
+            for(int i=0;i<categories.length;i++){
+                if(categories[i].toString().equals(category)){
+                    selectCategorySpinner.setSelection(i);
+                    break;
+                }
+            }
+
             //        if (score>=DatabaseHighsore)
             checkScore();
             btnStart = findViewById(R.id.btnStart);
