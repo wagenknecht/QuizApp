@@ -28,13 +28,11 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
 
         public TextView score;
         public TextView name;
-        public TextView difficulty;
 
         public ViewHolder(@NonNull View v) {
             super(v);
-            score = v.findViewById(R.id.firstLine);
-            name = v.findViewById(R.id.secondLine);
-            difficulty = v.findViewById(R.id.difficulty);
+            score = v.findViewById(R.id.tvPosition);
+            name = v.findViewById(R.id.tvUsername);
         }
     }
 
@@ -53,7 +51,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View v = inflater.inflate(R.layout.score, parent, false);
+        View v = inflater.inflate(R.layout.item_score, parent, false);
         ViewHolder vh = new ViewHolder(v);
 
         return vh;
@@ -64,7 +62,6 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
         String score = String.valueOf(values.get(position).getScore() + "/10");
         holder.score.setText(score);
         holder.name.setText(values.get(position).getName());
-        holder.difficulty.setText(values.get(position).getSchwierigkeit());
     }
 
     @Override

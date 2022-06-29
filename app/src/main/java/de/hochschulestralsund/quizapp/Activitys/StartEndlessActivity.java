@@ -31,7 +31,9 @@ public class StartEndlessActivity extends AppCompatActivity implements AdapterVi
         btnStart = findViewById(R.id.startQuiz);
 
         Spinner selectCategorySpinner = findViewById(R.id.selectCategorySpinner);
-        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, Category.values()));
+        ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, Category.values());
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        selectCategorySpinner.setAdapter(categoryAdapter);
     }
 
     @Override

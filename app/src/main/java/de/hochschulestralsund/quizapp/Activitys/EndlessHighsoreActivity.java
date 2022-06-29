@@ -8,6 +8,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -16,16 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.navigation.NavigationBarView;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import de.hochschulestralsund.quizapp.Adapter.EndlessScoreAdapter;
-import de.hochschulestralsund.quizapp.Adapter.ScoreAdapter;
 import de.hochschulestralsund.quizapp.Database.AppDatabase;
-import de.hochschulestralsund.quizapp.Database.Bestenliste;
 import de.hochschulestralsund.quizapp.Database.EndlessHighscore;
 import de.hochschulestralsund.quizapp.Entities.Category;
 import de.hochschulestralsund.quizapp.R;
@@ -39,18 +34,21 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
     int score;
     private AppDatabase database;
     private String category;
+    private Button btnStart;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.endless_highscore_activity);
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.rcScoreItems);
         selectCategorySpinner = findViewById(R.id.spinnerCategory);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         database = AppDatabase.getDatabase(getApplicationContext());
-        selectCategorySpinner.setAdapter(new ArrayAdapter<Category>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,Category.values()));
+        ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, R.layout.spinner_selected_item, Category.values());
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        selectCategorySpinner.setAdapter(categoryAdapter);
         selectCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -70,6 +68,8 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
             category = (String) getIntent().getSerializableExtra("category");
             //        if (score>=DatabaseHighsore)
             checkScore();
+            btnStart = findViewById(R.id.btnStart);
+            btnStart.setText("Retry");
         }
 
         List<EndlessHighscore> endlessHighscore = database.endlessHighscoreDao().getEndlessHighscoreCategoryEntry(selectCategorySpinner.getSelectedItem().toString());
@@ -83,7 +83,7 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void retry(View view) {
+    public void clickRetry(View view) {
         Intent intent = new Intent(this, StartEndlessActivity.class);
         startActivity(intent);
     }
@@ -92,7 +92,7 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(
                 EndlessHighsoreActivity.this
         );
-        builder.setTitle("\uD83C\uDF89 new high score: " + score + " points in " + category +  "\uD83C\uDF89");
+        builder.setTitle("\uD83C\uDF89 New Highscore: " + score + " points in " + category + ".\uD83C\uDF89");
         builder.setCancelable(false);
         builder.setMessage("Please enter a name under which the high score should be saved");
         final EditText input = new EditText(this);
@@ -120,6 +120,7 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
     // checks the score if it is greater than the smallest value in the list or
     // there are less than 10 entries in the db, then the score can be saved
     private void checkScore() {
@@ -128,22 +129,22 @@ public class EndlessHighsoreActivity extends AppCompatActivity {
         if (bestenliste.size() == 10) {
 
             EndlessHighscore bestenliste1 = bestenliste.get(9);
-            if(bestenliste1.getScore() < score)   {
+            if (bestenliste1.getScore() < score) {
                 newHighscore();
 
                 database.endlessHighscoreDao().removeEndlessHighscoreEntry(bestenliste1);
                 updateDatabase();
-            } else  {
+            } else {
                 updateDatabase();
             }
 
-        }else   {
+        } else {
             newHighscore();
         }
     }
 
     //updating the adapter
-    private void updateDatabase()   {
+    private void updateDatabase() {
         List<EndlessHighscore> bestenliste = database.endlessHighscoreDao().getEndlessHighscoreCategoryEntry(category);
         mAdapter = new EndlessScoreAdapter(bestenliste);
         recyclerView.setAdapter(mAdapter);

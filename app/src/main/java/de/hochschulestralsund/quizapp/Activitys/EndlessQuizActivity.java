@@ -62,11 +62,16 @@ public class EndlessQuizActivity extends AppCompatActivity {
             loadMoreQuestions();
         }
         btnContinue.setVisibility(View.VISIBLE);
+        buttons.forEach(a -> {
+            a.setClickable(false);
+            a.setBackgroundColor(Color.GRAY);
+        });
         correctAnswere.setBackgroundColor(Color.GREEN);
-        buttons.forEach(a -> a.setClickable(false));
         //if question is correct
         if (view.getId() == correctAnswere.getId()) {
             score++;
+            TextView tvScore = findViewById(R.id.ScoreNumber);
+            tvScore.setText("Score: " + score);
         } else {
             lives--;
             ImageView imageView;
@@ -93,9 +98,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
         TextView Question = findViewById(R.id.Frage);
         questionTitel.setText(question.get(number % questionsPerApiCall).getCategory());
         Question.setText(question.get(number % questionsPerApiCall).getQuestion());
-        TextView Number = findViewById(R.id.QuestionNumber);
-        int display = number + 1;
-        Number.setText("Question Number: " + display);
+
     }
 
     public Button setAnsweres() {
@@ -104,7 +107,7 @@ public class EndlessQuizActivity extends AppCompatActivity {
         int correct = random.nextInt(4);
         correctAnswere = buttons.get(correct); //save CorrectAnswer to global string to compare result
         //todo remove string correct, just for testing
-        correctAnswere.setText("correct: " + question.get(number % questionsPerApiCall).getCorrect_answer());
+        correctAnswere.setText(question.get(number % questionsPerApiCall).getCorrect_answer());
         int j = 0;
         for (int i = 0; i < buttons.size(); i++) {
             if (i != correct) {
@@ -117,19 +120,19 @@ public class EndlessQuizActivity extends AppCompatActivity {
     }
 
     public void clickContinue(View view) {
-        if(lives == 0){
+        if (lives == 0) {
             Intent intent = new Intent(this, EndlessHighsoreActivity.class);
             intent.putExtra("score", score);
             intent.putExtra("category", category);
             startActivity(intent);
         } else {
-                buttons.forEach(a -> a.setClickable(true));
-                number++;
-                setAnsweres();
-                setQuestion();
-            }
-            view.setVisibility(View.INVISIBLE);
-            buttons.forEach(a -> a.setBackgroundColor(fetchcolorOnPrimary()));
+            buttons.forEach(a -> a.setClickable(true));
+            number++;
+            setAnsweres();
+            setQuestion();
+        }
+        view.setVisibility(View.INVISIBLE);
+        buttons.forEach(a -> a.setBackgroundColor(fetchcolorOnPrimary()));
 
 
     }
@@ -146,17 +149,12 @@ public class EndlessQuizActivity extends AppCompatActivity {
         });
     }
 
+    //method to get colorOnPrimary
     private int fetchcolorOnPrimary() {
-
         TypedValue typedValue = new TypedValue();
-
-        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { com.google.android.material.R.attr.colorOnPrimary });
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[]{com.google.android.material.R.attr.colorOnPrimary});
         int color = a.getColor(0, 0);
-
         a.recycle();
-
         return color;
     }
-
-
 }
